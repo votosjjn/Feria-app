@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Explora proyectos, juega y vive la Feria Empresarial de la I.E.D. Juan José Neira.">
+  <title>Feria Empresarial · I.E.D. Juan José Neira</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="transitions.css">
+  <link rel="stylesheet" href="photo.css">
+  <link rel="stylesheet" href="arcade.css">
+  <link rel="stylesheet" href="arcade-phase.css?v=question-mark-cleanup-1">
+</head>
+<body>
+  <div class="loader" id="loader" aria-label="Cargando la feria">
+    <div class="loader-emblem"><img src="images.png" alt=""><span class="loader-orbit"><i>&#10022;</i></span></div>
+    <p class="eyebrow">I.E.D. JUAN JOSÉ NEIRA</p>
+    <h1>FERIA <span>EMPRESARIAL</span></h1>
+    <p class="loader-sub">TÉCNICA EN PROGRAMACIÓN DE SOFTWARE</p>
+    <div class="boot-readout" aria-live="polite"><span class="boot-light"></span><span id="loadingNote">INITIALIZING SYSTEM...</span><span class="boot-build">BUILD // 01</span></div>
+    <div class="loading-track" role="progressbar" aria-label="Inicio de sistemas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="loading-fill" id="loadingFill"></div><div class="loading-runners" aria-hidden="true"><span class="boot-sprite sprite-bot"></span><span class="boot-sprite sprite-worm"></span><span class="boot-sprite sprite-ship"></span></div></div><div class="loading-percent"><span>SYSTEM BOOT</span><b id="loadingPercent">00%</b></div>
+    <div class="boot-checks" aria-hidden="true"><span data-boot-step="0">PROJECTS</span><span data-boot-step="1">ARCADE</span><span data-boot-step="2">PHOTO SYSTEM</span><span data-boot-step="3">TECHNOLOGY</span></div>
+  </div>
+  <div class="ambient" aria-hidden="true"><canvas class="ambient-particles" id="ambientParticles"></canvas><div class="ambient-grid"></div><div class="ambient-game-decor"><img class="ambient-mascot" src="arcade-mascot.svg" alt=""><span class="ambient-tetromino"><i></i><i></i><i></i><i></i></span><span class="ambient-worm"><i></i><i></i><i></i><i></i></span><span class="ambient-pixel-star">&#10022;</span></div>
+  <i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i><i class="spark s4"></i><i class="spark s5"></i><i class="spark s6"></i>
+  <span class="ambient-code code-a">&lt; PLAY /&gt;</span><span class="ambient-code code-b">0101 · 0010</span><span class="ambient-energy"></span></div>
+  <div class="section-curtain" id="sectionCurtain" aria-hidden="true"><div class="transition-sprite" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><p class="eyebrow">CAMBIANDO DE NIVEL</p><b id="curtainTitle">PREPARANDO LA FERIA</b><small>LISTO PARA EXPLORAR</small></div>
+  <section class="welcome-screen" id="welcomeScreen" aria-label="Introducción de la feria" hidden>
+    <div class="welcome-scanlines" aria-hidden="true"></div><div class="welcome-frame">
+      <div class="welcome-topline"><span><i class="live-dot"></i>SYSTEM ONLINE</span><span>PLAYER 01 <b>&#9670;</b></span></div>
+      <div class="welcome-emblem"><img src="images.png" alt="Escudo de la I.E.D. Juan José Neira"><i>&#10022;</i><i>&#9670;</i></div>
+      <p class="eyebrow">I.E.D. JUAN JOSÉ NEIRA · LEVEL 01</p><h1>FERIA<br><em>EMPRESARIAL</em></h1>
+      <p class="welcome-sub">TÉCNICA EN PROGRAMACIÓN DE SOFTWARE</p>
+      <button class="button button-primary welcome-start" id="welcomeStart"><span>&#9654;</span> START GAME <small>TOCA PARA ENTRAR</small></button>
+      <div class="welcome-bottom"><span>ARCADE MODE</span><span>READY <b>&#9670;</b></span></div>
+    </div>
+  </section>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio"><img class="brand-logo" src="images.png" alt="Escudo de la I.E.D. Juan José Neira"><span class="brand-text">FERIA <b>EMPRESARIAL</b><small>I.E.D. JUAN JOSÉ NEIRA</small></span></a>
+    <nav class="desktop-nav" aria-label="Navegación principal"><a href="#proyectos">Proyectos</a><a href="#juego">Juegos</a><a href="#fotos">Fotos</a></nav>
+    <div class="header-tools"><button class="fullscreen-toggle" id="fullscreenToggle" aria-label="Activar pantalla completa" title="Pantalla completa">&#x26F6; <span>PANTALLA COMPLETA</span></button><button class="sound-toggle" id="soundToggle" aria-pressed="true" title="Activar o desactivar sonidos">&#9835; <span>Sonido activo</span></button></div>
+  </header>
+  <main id="app">
+    <section class="page active" id="inicio" data-transition="home">
+      <div class="hub-label"><span class="live-dot"></span> ARCADE HUB <i>///</i> SELECT YOUR EXPERIENCE <b>LEVEL 01</b></div>
+      <div class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="live-dot"></span> FERIA INTERACTIVA · SISTEMA EN LÍNEA</p>
+          <h1>La feria<br>cobra <em>vida.</em></h1>
+          <p class="hero-desc">Entra, explora lo que creamos y juega. Esta experiencia está hecha para tocarse.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#juego" data-game-mode="galaga"><span class="play-icon">&#9654;</span> ENTRAR AL ARCADE <span>&#8594;</span></a></div>
+          <div class="hero-meta"><span class="meta-line"></span><span>TÉCNICA EN PROGRAMACIÓN DE SOFTWARE · IDEAS, PROYECTOS Y JUEGOS</span></div>
+        </div>
+        <div class="hero-art" aria-label="Ilustración animada de la feria"><div class="hero-ring ring-a"></div><div class="hero-ring ring-b"></div><div class="hero-sun"></div><div class="art-label label-bottom"><span class="mini-led"></span> HECHO PARA DESCUBRIR</div><div class="hero-chip chip-one">&lt;/&gt;</div><div class="hero-chip chip-two">&#10022;</div><div class="hero-chip chip-three">&#9671;</div><div class="hero-center"><span>JN</span><small>EXPO</small></div></div>
+      </div>
+      <div class="quick-dock wrap"><a href="#proyectos"><span class="dock-icon icon-project">&#9672;</span><span><b>PROYECTOS</b><small>Sistemas creados en clase</small></span><i>&#8599;</i></a><a href="#fotos"><span class="dock-icon icon-photo">&#9635;</span><span><b>PHOTO ARCADE</b><small>Activa la c&aacute;mara &#183; Guarda tu recuerdo</small></span><i>&#8599;</i></a></div>
+      <div class="ticker"><div>PIXEL A PIXEL <b>&#10022;</b> IDEAS EN MOVIMIENTO <b>&#10022;</b> CREATIVIDAD EN MODO ARCADE <b>&#10022;</b> TECNOLOGÍA QUE SE JUEGA <b>&#10022;</b> PIXEL A PIXEL <b>&#10022;</b></div></div>
+    </section>
+
+    <section class="page" id="proyectos" data-transition="projects">
+      <div class="wrap section-wrap"><div class="section-hud"><a class="back-link" href="#inicio">&#8592; <span>Volver al inicio</span></a><span id="hudBuild">SYSTEM ONLINE</span></div><div class="section-heading"><div><p class="eyebrow">PROJECT SELECT · SYSTEM ONLINE</p><h1>Proyectos<span class="heading-dot">.</span></h1></div><p>Conoce las ideas que nacieron en el aula y explora lo que puedes hacer con ellas.</p></div>
+        <div class="project-gallery" aria-label="Galería de proyectos">
+          <div class="project-carousel" aria-label="Galería de proyectos">
+            <div class="project-carousel-heading"><span><i></i> EXPLORA LOS PROYECTOS</span><div class="project-carousel-arrows"><button type="button" id="projectPrevious" aria-label="Proyecto anterior">&#8592;</button><button type="button" id="projectNext" aria-label="Proyecto siguiente">&#8594;</button></div></div>
+            <div class="project-gallery-stats"><span><b>08</b> PROYECTOS</span><span><b>01</b> DISPONIBLE</span><span><b>07</b> POR LLEGAR</span></div>
+            <div class="project-gallery-viewport" id="projectGalleryViewport" tabindex="0" aria-label="Desliza para explorar las cartas de proyectos"><div class="project-gallery-track" id="projectGalleryTrack">
+              <button class="gallery-project-card is-selected" data-gallery-project="votacion" aria-pressed="true" aria-label="Proyecto 1: Sistema de Votación Electrónico"><span class="gallery-card-top"><b>PROYECTO 01</b><i>DESTACADO</i></span><span class="gallery-card-visual gallery-visual-voting"><img src="MI-Voto-S.A.S-logo-_1_.webp" alt=""><span>&#10022; SISTEMA DIGITAL</span></span><span class="gallery-card-copy"><b>Sistema de Votación Electrónico</b><small>Explorar proyecto <i>&#8599;</i></small></span></button>
+              <button class="gallery-project-card" data-gallery-project="proyecto-2" aria-pressed="false" aria-label="Proyecto 2, próximamente"><span class="gallery-card-top"><b>PROYECTO 02</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-cyan"><span class="gallery-card-glyph">&#10038;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
+              <button class="gallery-project-card" data-gallery-project="proyecto-3" aria-pressed="false" aria-label="Proyecto 3, próximamente"><span class="gallery-card-top"><b>PROYECTO 03</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-gold"><span class="gallery-card-glyph">&#9671;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
+              <button class="gallery-project-card" data-gallery-project="proyecto-4" aria-pressed="false" aria-label="Proyecto 4, próximamente"><span class="gallery-card-top"><b>PROYECTO 04</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-violet"><span class="gallery-card-glyph">&#9638;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
+              <button class="gallery-project-card" data-gallery-project="proyecto-5" aria-pressed="false" aria-label="Proyecto 5, próximamente"><span class="gallery-card-top"><b>PROYECTO 05</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-orange"><span class="gallery-card-glyph">&#10022;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
+              <button class="gallery-project-card" data-gallery-project="proyecto-6" aria-pressed="false" aria-label="Proyecto 6, próximamente"><span class="gallery-card-top"><b>PROYECTO 06</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-mint"><span class="gallery-card-glyph">&#8984;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
+              <button class="gallery-project-card" data-gallery-project="proyecto-7" aria-pressed="false" aria-label="Proyecto 7, próximamente"><span class="gallery-card-top"><b>PROYECTO 07</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-blue"><span class="gallery-card-glyph">&#9672;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
+              <button class="gallery-project-card" data-gallery-project="proyecto-8" aria-pressed="false" aria-label="Proyecto 8, próximamente"><span class="gallery-card-top"><b>PROYECTO 08</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-pink"><span class="gallery-card-glyph">&#10023;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
+            </div></div>
+            <div class="project-carousel-footer"><span>DESLIZA O USA LAS FLECHAS</span><span><b id="projectCurrentIndex">01</b> <i>/</i> 08</span></div>
+          </div>
+          <div class="project-phone-wrap"><p class="phone-hint"><span></span> SELECCIÓN ACTUAL <b>TOCA UN PROYECTO</b></p>
+            <div class="project-phone" aria-live="polite"><div class="phone-speaker"></div><div class="phone-camera"></div><div class="phone-screen">
+              <div class="phone-status"><span>JN EXPO</span><span>&#9679;&#9679;&#9679; &#9648;</span></div><div class="phone-appbar"><span>PROYECTO <b id="phoneProjectNumber">01</b></span><span>•••</span></div>
+              <div class="phone-project-art" id="phoneProjectArt"><img id="phoneProjectLogo" src="MI-Voto-S.A.S-logo-_1_.webp" alt="Logo de Mi Voto"><span id="phoneProjectGlyph" hidden>&#10038;</span></div>
+              <div class="phone-project-content"><span class="phone-project-category" id="phoneProjectCategory">SISTEMA DIGITAL · FERIA 2026</span><h2 id="phoneProjectTitle">Sistema de Votación Electrónico</h2><p id="phoneProjectDescription">Una propuesta digital para organizar y vivir una jornada de votación.</p><span class="phone-project-progress"><i></i></span><button id="phoneProjectAction" type="button">VER FICHA <b>&#8599;</b></button></div>
+              <div class="phone-nav"><i></i><i></i><i></i></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="juego" data-transition="game"><div class="wrap section-wrap"><a class="back-link" href="#inicio">&#8592; <span>Volver al menú</span></a><div class="section-heading"><div><p class="eyebrow">SELECCI&#211;N DE EXPERIENCIA · 02</p><h1>Arcade <em>Zone</em><span class="heading-dot">.</span></h1></div><p>Elige un juego y supera tu propio récord.</p></div>
+      <div class="game-layout">
+        <div class="game-tabs" role="tablist" aria-label="Selecciona un juego"><button class="game-tab active" role="tab" aria-selected="true" data-mode="snake"><span>&#9673;</span> Gusano &amp; Manzana</button><button class="game-tab" role="tab" aria-selected="false" data-mode="galaga"><span>&#10022;</span> Galaga</button><button class="game-tab" role="tab" aria-selected="false" data-mode="tetris"><span>&#9638;</span> Tetris</button></div>
+        <div class="game-panel"><div class="game-status"><span><i class="live-dot"></i> <span id="gameModeName">GUSANO &amp; MANZANA</span></span><span class="game-score">PUNTOS <b id="score">00</b></span></div><div class="game-play-area"><div class="game-board-wrap"><canvas id="gameCanvas" width="480" height="480" aria-label="Tablero de Gusano y Manzana"></canvas><canvas id="galagaCanvas" width="480" height="480" aria-label="Tablero de Galaga" hidden></canvas><canvas id="tetrisCanvas" width="480" height="480" aria-label="Tablero de Tetris" hidden></canvas><div class="game-overlay" id="gameOverlay"><div class="overlay-orbit" id="overlayIcon">&#10038;</div><div class="arcade-countdown" id="arcadeCountdown" aria-live="assertive" hidden><span>ROUND START</span><b>3</b><small>GET READY</small></div><div class="record-celebration" id="recordCelebration" hidden><span>&#10022; NEW HIGH SCORE &#10022;</span><b>ARCADE LEGEND</b></div><p class="eyebrow" id="gameEyebrow">RETO RÁPIDO</p><h2 id="gameTitle">¿Listo para jugar?</h2><p id="gameMessage">Recoge las manzanas y evita chocar contigo mismo.</p><button class="button button-primary" id="gameStart">Empezar a jugar <span>&#8594;</span></button></div></div><div class="game-controls"><div class="game-hint" id="gameHint">Usa las flechas o desliza sobre el tablero</div><div class="dpad" aria-label="Controles táctiles"><button data-dir="up" aria-label="Arriba">&#8593;</button><button data-dir="left" aria-label="Izquierda">&#8592;</button><button data-dir="down" aria-label="Abajo">&#8595;</button><button data-dir="right" aria-label="Derecha">&#8594;</button></div><button class="arcade-pause" id="gamePause" hidden aria-label="Pausar partida">&#9646; PAUSAR</button><button class="fire-button" id="fireButton" hidden aria-label="Disparar">FIRE <span>&#10022;</span></button></div></div></div>
+        <aside class="game-side"><div class="side-stat"><span>RÉCORD LOCAL</span><b id="bestScore">00</b><small>Guardado en este dispositivo</small></div><section class="leaderboard-panel" aria-labelledby="leaderboardTitle"><div class="leaderboard-heading"><span id="leaderboardTitle">ARCADE TOP PLAYERS</span><b>TOP 05</b></div><ol id="leaderboardList" aria-live="polite"></ol></section><div class="side-copy"><span class="mini-star">&#10022;</span><h3 id="gameTipTitle">Consejo de juego</h3><p id="gameTip">Anticipa los giros y deja espacio para maniobrar. Cada manzana suma 10 puntos.</p></div><div class="side-mascot" id="gameMascot"><div class="tiny-apple">&#9679;</div><div class="tiny-worm"><i></i><i></i><i></i></div><span>¡A por otra!</span></div></aside>
+      </div></div></section>
+
+    <section class="page" id="fotos" data-transition="photo">
+      <div class="wrap section-wrap">
+        <a class="back-link" href="#inicio">&#8592; <span>Volver al inicio</span></a>
+        <div class="section-heading"><div><p class="eyebrow">SELECCI&#211;N DE EXPERIENCIA · 03</p><h1>Photo <em>Arcade</em><span class="heading-dot">.</span></h1></div><p>T&oacute;mate una foto, cambia el fondo y guarda tu recuerdo.</p></div>
+        <div class="photo-layout">
+          <div class="photo-stage">
+            <div class="photo-stage-top"><span><i class="live-dot"></i> ESTACI&Oacute;N DE FOTOS</span><span id="modelStatus">RECORTE LOCAL DISPONIBLE</span><span id="photoStatus">PASO 01 / 03</span></div>
+            <div class="photo-canvas-wrap"><video id="cameraPreview" autoplay playsinline muted hidden></video><canvas id="photoCanvas" width="900" height="600" aria-label="Vista previa del recuerdo"></canvas><div class="photo-placeholder" id="photoPlaceholder"><span class="camera-icon">&#9635;</span><b>Tu recuerdo empieza aqu&iacute;</b><small>Activa la c&aacute;mara para tomarte una foto.</small></div><div class="photo-countdown" id="photoCountdown" aria-live="assertive"></div><span class="photo-rec" aria-hidden="true"><i></i> REC</span></div>
+            <div class="camera-actions"><button class="button button-primary" id="cameraStart">Activar c&aacute;mara <span>&#8599;</span></button><button class="button button-outline" id="capturePhoto" disabled>Tomar foto <span>&#9679;</span></button><button class="button button-quiet" id="retakePhoto" hidden>Volver a tomar</button></div>
+            <div class="photo-tools" id="photoTools" hidden><label for="matteThreshold">Precisi&oacute;n del recorte <output id="matteValue">55</output></label><input id="matteThreshold" type="range" min="30" max="76" value="55"><small>Hacia la izquierda conserva cabello y bordes; hacia la derecha elimina m&aacute;s fondo. El modelo prioriza a la persona y limpia manchas separadas.</small></div>
+            <div class="photo-actions"><button class="button button-outline" id="savePhoto" disabled>Guardar recuerdo <span>&#8595;</span></button></div>
+            <p class="photo-local-note">La c&aacute;mara y la foto se procesan en este dispositivo. No se env&iacute;an a ning&uacute;n servicio.</p>
+          </div>
+          <div class="scene-picker"><div class="scene-picker-heading"><div><p class="eyebrow">PASO 02 &mdash; ESCENARIO</p><h2>Elige tu fondo</h2></div><span class="scene-picker-count">05<br><small>OPCIONES</small></span></div>
+            <div class="scene-selected-preview" id="sceneSelectedPreview" aria-live="polite"><span class="scene-selected-art scene-fair" id="sceneSelectedArt">&#9672;</span><span><small>FONDO SELECCIONADO</small><b id="sceneSelectedName">Feria empresarial</b><em id="sceneSelectedHint">Un día para recordar</em></span><i>&#10003;</i></div>
+            <div class="scene-list">
+              <button class="scene-choice" data-scene="tecnologia" aria-pressed="false"><span class="scene-thumb scene-tech">&#10022;<small>01</small></span><span><b>Tecnolog&iacute;a</b><small>Luz en movimiento</small></span><i>&#10003;</i></button>
+              <button class="scene-choice" data-scene="programacion" aria-pressed="false"><span class="scene-thumb scene-code">&lt;/&gt;<small>02</small></span><span><b>Programaci&oacute;n</b><small>C&oacute;digo en acci&oacute;n</small></span><i>&#10003;</i></button>
+              <button class="scene-choice selected" data-scene="feria" aria-pressed="true"><span class="scene-thumb scene-fair">&#9672;<small>03</small></span><span><b>Feria empresarial</b><small>Un d&iacute;a para recordar</small></span><i>&#10003;</i></button>
+              <button class="scene-choice" data-scene="innovacion" aria-pressed="false"><span class="scene-thumb scene-idea">&#10038;<small>04</small></span><span><b>Innovaci&oacute;n</b><small>Ideas hacia el futuro</small></span><i>&#10003;</i></button>
+              <button class="scene-choice" data-scene="sin-fondo" aria-pressed="false"><span class="scene-thumb scene-empty">&#9633;<small>05</small></span><span><b>Foto original</b><small>Conserva el fondo</small></span><i>&#10003;</i></button>
+              <button class="scene-choice scene-choice-frame" data-scene="marco" aria-pressed="false"><span class="scene-thumb scene-frame">&#9634;<small>FX</small></span><span><b>Marco arcade</b><small>Capa independiente</small></span><i>&#10003;</i></button>
+            </div>
+            <div class="photo-cutout-note"><span>&#10022;</span><p><b>Recorte inteligente en tu dispositivo</b><br>El modelo prioriza a la persona, limpia el fondo y procesa todo en este navegador. Tu foto no se sube a internet.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="score-entry" id="scoreEntry" aria-hidden="true" hidden><div class="score-entry-backdrop"></div><section class="score-entry-card" role="dialog" aria-modal="true" aria-labelledby="scoreEntryTitle"><span class="score-entry-badge" id="scoreEntryBadge">ARCADE RUN SAVED</span><h2 id="scoreEntryTitle">ENTER YOUR NAME</h2><p id="scoreEntryMessage">Escribe tu nombre para guardar la partida.</p><label class="visually-hidden" for="playerName">Nombre de jugador</label><input id="playerName" maxlength="10" autocomplete="off" autocapitalize="characters" placeholder="PLAYER 01"><div class="score-keyboard" id="scoreKeyboard" aria-label="Teclado de letras"></div><div class="score-keyboard-actions"><button class="score-key score-key-wide" id="scoreSpace" type="button">SPACE</button><button class="score-key score-key-delete" id="scoreDelete" type="button" aria-label="Borrar última letra">&#9003;</button><button class="score-key score-key-enter" id="scoreSubmit" type="button">ENTER &#8629;</button></div><button class="score-entry-skip" id="scoreSkip" type="button">CONTINUAR SIN GUARDAR</button></section></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+  <footer class="site-footer"><span>FERIA EMPRESARIAL · PROGRAMACIÓN CREATIVA</span><span class="footer-credit">&#10022; CREADO POR <b>MIGUEL AMAYA</b> &#10022;</span><span>HECHO PARA EXPLORAR <b>&#10022;</b></span></footer>
+  <div class="modal" id="projectModal" aria-hidden="true"><div class="modal-backdrop" data-close></div><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" data-close aria-label="Cerrar">×</button><div class="modal-art" id="modalArt"></div><div class="modal-content"><p class="eyebrow" id="modalEyebrow">PROYECTO 01</p><h2 id="modalTitle">Sistema de Votación Electrónico</h2><p id="modalDescription"></p><div class="modal-tags" id="modalTags"></div><div class="modal-actions"><button class="button button-primary" id="modalVisit">Ver proyecto <span>&#8599;</span></button><button class="button button-quiet" data-close>Volver a proyectos</button></div><small class="modal-footnote">Ficha preparada para añadir imágenes, integrantes, tecnologías y enlace cuando estén disponibles.</small></div></div></div>
+  <script src="app.js"></script>
+  <script type="module" src="photo.js"></script>
+</body>
+</html>
+

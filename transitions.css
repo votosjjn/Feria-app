@@ -1,0 +1,24 @@
+#app[data-transition="projects"] .page.active { animation: projectIn .46s cubic-bezier(.2,.75,.25,1) both }
+#app[data-transition="game"] .page.active { animation: gameIn .42s cubic-bezier(.2,.75,.25,1) both }
+#app[data-transition="photo"] .page.active { animation: photoIn .48s ease both }
+#app[data-transition="about"] .page.active { animation: aboutIn .48s ease both }
+@keyframes projectIn { from { opacity:0; clip-path:inset(0 0 0 100%) } to { opacity:1; clip-path:inset(0) } }
+@keyframes gameIn { from { opacity:0; transform:scale(.975); filter:saturate(1.8) brightness(1.3) } to { opacity:1; transform:scale(1); filter:none } }
+@keyframes photoIn { from { opacity:0; filter:brightness(2.2) } 35% { opacity:1; filter:brightness(1.6) } to { opacity:1; filter:none } }
+@keyframes aboutIn { from { opacity:0; clip-path:inset(0 0 8%) } to { opacity:1; clip-path:inset(0) } }
+.section-curtain { background:#050b1c; overflow:hidden; isolation:isolate; transition:opacity .18s,visibility .18s }
+.section-curtain::before,.section-curtain::after { content:""; position:absolute; inset:0; pointer-events:none; z-index:-1 }
+.section-curtain::before { background:repeating-linear-gradient(0deg,transparent 0 5px,#72dcff10 6px 7px); opacity:.5 }
+.section-curtain::after { inset:-30% 0; background:linear-gradient(transparent,#00c8ff35,transparent); transform:translateY(-100%); opacity:0 }
+.section-curtain.shown::after { opacity:1; animation:curtainSweep .46s ease-in-out both }
+.section-curtain[data-effect="arcade"] .transition-sprite { filter:drop-shadow(0 0 12px #00c8ff); animation:arcadeBurst .46s steps(5,end) both }
+.section-curtain[data-effect="scan"]::before { background:repeating-linear-gradient(0deg,transparent 0 3px,#00c8ff24 4px 5px); animation:scanFlicker .42s steps(2,end) both }
+.section-curtain[data-effect="flash"] { background:#061322 }
+.section-curtain[data-effect="flash"]::before { background:repeating-linear-gradient(0deg,transparent 0 4px,#32d8ff20 5px 6px); animation:scanFlicker .62s steps(2,end) both }
+.section-curtain[data-effect="crt"]::before { background:linear-gradient(transparent 48%,#00c8ff55 50%,transparent 53%); background-size:100% 7px; animation:crtClose .46s cubic-bezier(.7,0,.8,.1) both }
+@keyframes curtainSweep { 0% { transform:translateY(-100%) } 100% { transform:translateY(100%) } }
+@keyframes arcadeBurst { 0% { transform:scale(.4) rotate(-20deg); opacity:0 } 35% { opacity:1 } 100% { transform:scale(1.25) rotate(12deg); opacity:0 } }
+@keyframes scanFlicker { 0%,100% { opacity:.1 } 30%,60% { opacity:.9 } }
+@keyframes cameraFlash { 0% { opacity:0 } 12% { opacity:1 } 100% { opacity:0 } }
+@keyframes crtClose { 0% { transform:scaleY(1); opacity:0 } 30% { opacity:1 } 100% { transform:scaleY(.015); opacity:0 } }
+@media(prefers-reduced-motion:reduce) { #app .page.active { animation:none!important } .section-curtain::before,.section-curtain::after,.section-curtain .transition-sprite { animation:none!important } }

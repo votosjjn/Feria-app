@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="frame" x2="1" y2="1"><stop stop-color="#60edff"/><stop offset=".48" stop-color="#b887ff"/><stop offset="1" stop-color="#ffe17b"/></linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
+  <path d="M26 72V26h86M788 26h86v86M874 528v46h-86M112 574H26v-86" fill="none" stroke="url(#frame)" stroke-opacity=".28" stroke-width="18" filter="url(#soft)"/>
+  <path d="M26 72V26h86M788 26h86v86M874 528v46h-86M112 574H26v-86" fill="none" stroke="url(#frame)" stroke-width="5"/>
+  <path d="M43 83V43h67M790 43h67v67M857 517v40h-67M110 557H43v-67" fill="none" stroke="#d8f9ff" stroke-opacity=".66" stroke-width="1.5"/>
+  <path d="M26 165h12v40H26zM26 236h7v20h-7zM862 184h12v48h-12zM867 266h7v24h-7zM26 384h8v33h-8zM866 385h8v42h-8z" fill="#53e5ff"/>
+  <path d="M31 169h2v32h-2zM867 188h2v39h-2zM31 388h2v25h-2zM869 389h2v34h-2z" fill="#fff1a6"/>
+  <g fill="#ffe17b"><path d="M123 31h10v10h-10zM767 31h10v10h-10zM123 559h10v10h-10zM767 559h10v10h-10z"/><circle cx="72" cy="119" r="3"/><circle cx="827" cy="478" r="3"/><circle cx="803" cy="139" r="2"/><circle cx="96" cy="462" r="2"/></g>
+  <path d="M155 27h590v3H155zM155 570h590v3H155z" fill="url(#frame)" opacity=".62"/>
+  <path d="M366 15h168v31H366z" fill="#091528" stroke="#75eaff" stroke-width="2"/>
+  <text x="450" y="35" text-anchor="middle" fill="#e9faff" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="4">PLAYER SELECT</text>
+  <path d="M365 555h170v29H365z" fill="#091528" stroke="#ffd66d" stroke-width="2"/>
+  <text x="450" y="574" text-anchor="middle" fill="#ffe899" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="3">FERIA EMPRESARIAL</text>
+  <g fill="#a8f5ff"><path d="M69 285l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="M829 322l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/></g>
+</svg>

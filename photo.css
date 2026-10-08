@@ -1,0 +1,144 @@
+.section-curtain {
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:15px;
+  background:rgba(5,15,26,.97);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .12s,visibility .12s
+}
+.section-curtain.shown {
+  opacity:1;
+  visibility:visible
+}
+.curtain-mark {
+  width:48px;
+  height:48px;
+  border:1px solid rgba(246,201,76,.42);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#f6c94c;
+  font-size:22px;
+  animation:curtainTurn .8s linear infinite
+}
+.section-curtain b {
+  font:10px 'DM Mono',monospace;
+  letter-spacing:.17em;
+  color:#c5d4de
+}
+.section-curtain>i {
+  width:100px;
+  height:2px;
+  background:rgba(170,205,224,.16);
+  overflow:hidden
+}
+.section-curtain u {
+  display:block;
+  width:45%;
+  height:100%;
+  background:#f6c94c;
+  animation:curtainLoad .55s ease-in-out infinite alternate
+}
+.photo-canvas-wrap {
+  position:relative
+}
+.photo-canvas-wrap video {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scaleX(-1);
+  z-index:1
+}
+.photo-canvas-wrap video[hidden] {
+  display:none
+}
+#photoCanvas.camera-ready {
+  visibility:hidden
+}
+.camera-actions {
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:13px
+}
+.camera-actions .button {
+  flex:1;
+  min-width:130px
+}
+.camera-actions [hidden],.photo-tools[hidden],.button[hidden] {
+  display:none
+}
+.photo-tools {
+  padding:12px 13px;
+  margin-top:10px;
+  border:1px solid rgba(177,205,224,.13);
+  border-radius:7px;
+  background:rgba(9,25,39,.72)
+}
+.photo-tools label {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:#d5e0e7;
+  font-size:10px
+}
+.photo-tools output {
+  color:#f6c94c;
+  font-family:'DM Mono',monospace
+}
+.photo-tools input {
+  display:block;
+  width:100%;
+  accent-color:#f2be53;
+  margin:12px 0 8px;
+  min-height:24px
+}
+.photo-tools small {
+  display:block;
+  color:#8598a6;
+  font-size:9px;
+  line-height:1.5
+}
+.photo-actions {
+  margin-top:9px
+}
+#proyectos .project-grid {
+  grid-template-columns:minmax(0,680px)
+}
+@keyframes curtainTurn {
+  to {
+    transform:rotate(360deg)
+  }
+}
+@keyframes curtainLoad {
+  to {
+    transform:translateX(120%)
+  }
+}
+@media(max-width:620px) {
+  .camera-actions {
+    display:grid;
+    grid-template-columns:1fr 1fr
+  }
+.camera-actions #retakePhoto {
+    grid-column:1/-1
+  }
+.camera-actions .button {
+    min-width:0
+  }
+.section-curtain {
+    bottom:58px
+  }
+.section-curtain b {
+    font-size:9px
+  }
+}
