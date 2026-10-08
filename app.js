@@ -395,11 +395,13 @@
     pendingScore=null;
   }
   const scoreKeyboard=$('#scoreKeyboard');
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter=>{const key=document.createElement('button');key.type='button';key.className='score-key';key.textContent=letter;key.setAttribute('aria-label',letter);key.addEventListener('click',()=>{const input=$('#playerName');input.value=(input.value+letter).slice(0,10);input.dispatchEvent(new Event('input'));});scoreKeyboard.append(key)});
+  function updatePlayerName(value){const input=$('#playerName');input.value=value.slice(0,10);input.dispatchEvent(new Event('input'))}
+  function bindScoreButton(button,action){let usedPointer=false;button.addEventListener('pointerdown',event=>{event.preventDefault();event.stopPropagation();usedPointer=true;action();setTimeout(()=>{usedPointer=false},0)});button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(usedPointer)return;action()})}
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter=>{const key=document.createElement('button');key.type='button';key.className='score-key';key.textContent=letter;key.setAttribute('aria-label',letter);bindScoreButton(key,()=>{const input=$('#playerName');updatePlayerName(input.value+letter)});scoreKeyboard.append(key)});
   $('#playerName').addEventListener('input',event=>{event.currentTarget.value=event.currentTarget.value.toUpperCase().replace(/[^A-Z0-9 _-]/g,'').slice(0,10)});
-  $('#scoreSpace').addEventListener('click',()=>{const input=$('#playerName');if(input.value.length<10)input.value+=' ';input.dispatchEvent(new Event('input'))});
-  $('#scoreDelete').addEventListener('click',()=>{const input=$('#playerName');input.value=input.value.slice(0,-1);input.dispatchEvent(new Event('input'))});
-  $('#scoreSubmit').addEventListener('click',()=>finishScoreEntry(true));$('#scoreSkip').addEventListener('click',()=>finishScoreEntry(false));
+  bindScoreButton($('#scoreSpace'),()=>{const input=$('#playerName');if(input.value.length<10)updatePlayerName(input.value+' ')});
+  bindScoreButton($('#scoreDelete'),()=>{const input=$('#playerName');updatePlayerName(input.value.slice(0,-1))});
+  bindScoreButton($('#scoreSubmit'),()=>finishScoreEntry(true));bindScoreButton($('#scoreSkip'),()=>finishScoreEntry(false));
   $('#playerName').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();finishScoreEntry(true)}if(event.key==='Escape')finishScoreEntry(false)});
   addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('#scoreEntry').hidden)finishScoreEntry(false)});
 
