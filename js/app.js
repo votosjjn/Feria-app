@@ -185,9 +185,9 @@
     oscillator.start(); oscillator.stop(audioContext.currentTime + duration);
   }
   const musicTracks=[
-    'thatlofishow-pixelate-pixelated-dreams-313358.mp3',
-    'thatlofishow-pixel-drift-pixel-dreams-313460.mp3',
-    'nocopyrightsound633-arcade-beat-323176.mp3'
+    'assets/audio/pixelate-pixel-dreams.mp3',
+    'assets/audio/pixel-drift-pixel-dreams.mp3',
+    'assets/audio/arcade-beat.mp3'
   ];
   let musicAudio=null, musicIndex=0, musicTimer=null, musicStarted=false;
   function playMusicTrack(){
@@ -262,7 +262,7 @@
     $('#modalDescription').textContent = selectedProject.description;
     $('#modalTags').innerHTML = selectedProject.tags.map(t => `<span>${t}</span>`).join('');
     const art = $('#modalArt'); art.className = `modal-art${key === 'gusano' ? ' worm-art' : ''}`;
-    art.innerHTML = key === 'gusano' ? '<div class="worm-mascot" aria-hidden="true"><span></span><span></span><span></span><b>●</b></div>' : '<img class="voting-project-logo modal-voting-logo" src="MI-Voto-S.A.S-logo-_1_.webp" alt="Logo del Sistema de Votación Mi Voto">';
+    art.innerHTML = key === 'gusano' ? '<div class="worm-mascot" aria-hidden="true"><span></span><span></span><span></span><b>●</b></div>' : '<img class="voting-project-logo modal-voting-logo" src="assets/images/projects/logo-mi-voto.webp" alt="Logo del Sistema de Votación Mi Voto">';
     $('#modalVisit').textContent = key === 'gusano' ? 'Jugar ahora →' : 'Ficha del proyecto →';
     modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); document.body.classList.add('modal-open');
     $('.modal-close').focus();
@@ -371,7 +371,9 @@
     $('#scoreEntryBadge').textContent=personalRecord?'NEW PERSONAL BEST':contender?'TOP 5 CONTENDER':'ARCADE RUN SAVED';
     $('#scoreEntryMessage').textContent=`${leaderboardNames[mode]}  ·  ${Number(score).toLocaleString('es-CO')} PTS`;
     input.value='';dialog.hidden=false;dialog.setAttribute('aria-hidden','false');dialog.classList.add('open');
-    if(!matchMedia('(pointer:coarse)').matches)input.focus({preventScroll:true});
+    // Touch TVs may report a fine primary pointer; use the custom arcade keyboard.
+    const hasTouchInput = navigator.maxTouchPoints > 0 || matchMedia('(pointer:coarse)').matches;
+    if(!hasTouchInput)input.focus({preventScroll:true});
   }
   function finishScoreEntry(save=true) {
     const dialog=$('#scoreEntry');if(dialog.hidden)return;let result={rank:0,qualified:false};
@@ -420,7 +422,9 @@
   setInterval(()=>{const hud=$('#hudBuild');if(hud)hud.textContent=Math.random()<.12?'MA // 01':'SYSTEM ONLINE'},9000);
 
   // Snake game: 20 × 20 grid, local best score, keyboard, swipe and large touch pad.
-  const canvas = $('#gameCanvas'); const pixelRatio = Math.min(2, window.devicePixelRatio || 1);
+  const canvas = $('#gameCanvas');
+  // Keep the backing store at the game's logical resolution for older TV GPUs.
+  const pixelRatio = 1;
   const galagaCanvas = $('#galagaCanvas');
   const tetrisCanvas = $('#tetrisCanvas');
   [canvas, galagaCanvas, tetrisCanvas].forEach(board => { board.width = 480 * pixelRatio; board.height = 480 * pixelRatio; });
@@ -466,8 +470,8 @@
     for(const b of galaga.bullets){gctx.shadowColor='#ffe66f';gctx.shadowBlur=12;gctx.fillStyle='#fff3a3';gctx.fillRect(b.x-2,b.y-7,4,13)}gctx.shadowBlur=0;for(const b of galaga.enemyShots){gctx.fillStyle='#ff6c9a';gctx.shadowColor='#ff4c83';gctx.shadowBlur=9;gctx.fillRect(b.x-2,b.y,4,10)}gctx.shadowBlur=0;gctx.fillStyle='#c5d8ec';gctx.font='15px monospace';gctx.fillText(`VIDAS ${'\u25c6 '.repeat(galaga.lives).trim()||'---'}`,16,462);gctx.fillText(`NIVEL ${galaga.level}`,390,462);gctx.globalAlpha=1;
   }
   function fireGalaga(){if(!game.running||game.mode!=='galaga'||performance.now()<galaga.fireAt)return;galaga.bullets.push({x:galaga.playerX,y:444});galaga.fireAt=performance.now()+190;beep(600,.025)}
-  function startGame(){clearInterval(game.timer);clearTimeout(gameCelebrationTimer);$('#recordCelebration').hidden=true;$('#recordCelebration').classList.remove('show','top-five');$('#arcadeCountdown').hidden=true;$('#gameOverlay').classList.remove('game-over','new-record','top-five-entry');game.score=0;$('#score').textContent='00';game.running=true;game.paused=false;$('#gamePause').hidden=false;$('#gameOverlay').classList.add('hidden');if(game.mode==='galaga'){galaga.playerX=240;galaga.move=0;galaga.bullets=[];galaga.enemyShots=[];galaga.effects=[];galaga.direction=1;galaga.step=0;galaga.lives=3;galaga.level=1;galaga.invulnerableUntil=0;seedAliens();game.timer=setInterval(tick,32);renderGalaga()}else if(game.mode==='tetris'){tetr.board=Array.from({length:20},()=>Array(10).fill(null));tetr.lines=0;newTetromino();game.timer=setInterval(tick,getTetrisSpeed());renderTetris()}else{game.snake=[{x:7,y:10},{x:6,y:10},{x:5,y:10}];game.dir={x:1,y:0};game.next={x:1,y:0};placeApple();game.timer=setInterval(tick,snakeSpeed);renderGame()}}
-  function pauseGame(showOverlay=false){if(!game.running)return;game.running=false;game.paused=showOverlay;$('#gamePause').hidden=true;galaga.move=0;clearInterval(game.timer);clearInterval(fireTimer);clearInterval(canvasFireTimer);releaseArcadeInputs();if(showOverlay){$('#gameEyebrow').textContent='PARTIDA EN PAUSA';$('#gameTitle').textContent='Seguimos cuando quieras';$('#gameMessage').textContent=`Llevas ${game.score} puntos. Tu partida espera aquí.`;$('#gameStart').innerHTML='Continuar jugando <span>→</span>';$('#gameOverlay').classList.remove('hidden','game-over','new-record');$('#recordCelebration').hidden=true}}
+  function startGame(){clearInterval(game.timer);clearTimeout(gameCelebrationTimer);$('#recordCelebration').hidden=true;$('#recordCelebration').classList.remove('show','top-five');$('#arcadeCountdown').hidden=true;document.body.classList.add('arcade-playing');$('#gameOverlay').classList.remove('game-over','new-record','top-five-entry');game.score=0;$('#score').textContent='00';game.running=true;game.paused=false;$('#gamePause').hidden=false;$('#gameOverlay').classList.add('hidden');if(game.mode==='galaga'){galaga.playerX=240;galaga.move=0;galaga.bullets=[];galaga.enemyShots=[];galaga.effects=[];galaga.direction=1;galaga.step=0;galaga.lives=3;galaga.level=1;galaga.invulnerableUntil=0;seedAliens();game.timer=setInterval(tick,32);renderGalaga()}else if(game.mode==='tetris'){tetr.board=Array.from({length:20},()=>Array(10).fill(null));tetr.lines=0;newTetromino();game.timer=setInterval(tick,getTetrisSpeed());renderTetris()}else{game.snake=[{x:7,y:10},{x:6,y:10},{x:5,y:10}];game.dir={x:1,y:0};game.next={x:1,y:0};placeApple();game.timer=setInterval(tick,snakeSpeed);renderGame()}}
+  function pauseGame(showOverlay=false){if(!game.running)return;game.running=false;document.body.classList.remove('arcade-playing');game.paused=showOverlay;$('#gamePause').hidden=true;galaga.move=0;clearInterval(game.timer);clearInterval(fireTimer);clearInterval(canvasFireTimer);releaseArcadeInputs();if(showOverlay){$('#gameEyebrow').textContent='PARTIDA EN PAUSA';$('#gameTitle').textContent='Seguimos cuando quieras';$('#gameMessage').textContent=`Llevas ${game.score} puntos. Tu partida espera aquí.`;$('#gameStart').innerHTML='Continuar jugando <span>→</span>';$('#gameOverlay').classList.remove('hidden','game-over','new-record');$('#recordCelebration').hidden=true}}
   function endGame(){pauseGame();const mode=game.mode,storageKey=`feria-${mode}-best`,best=Number(localStorage.getItem(storageKey)||0),personalRecord=game.score>best&&game.score>0;if(personalRecord){localStorage.setItem(storageKey,String(game.score));$('#bestScore').textContent=String(game.score).padStart(2,'0')}const contender=isScoreContender(mode,game.score);$('#gameEyebrow').textContent=personalRecord?'NEW PERSONAL BEST':contender?'TOP 5 CONTENDER':'ARCADE RUN COMPLETE';$('#gameTitle').textContent='GAME OVER';const endings={snake:'GUSANO FUERA DE PISTA',galaga:'PILOTO FUERA DE COMBATE',tetris:'TORRE DE BLOQUES FINALIZADA'};$('#gameMessage').textContent=`${endings[mode]}  ·  SCORE ${Number(game.score).toLocaleString('es-CO')}`;$('#gameStart').innerHTML='JUGAR DE NUEVO <span>↻</span>';$('#gameOverlay').dataset.gameMode=mode;$('#gameOverlay').classList.remove('hidden','new-record','top-five-entry');$('#gameOverlay').classList.add('game-over');$('#recordCelebration').hidden=true;$('#recordCelebration').classList.remove('show','top-five');beep(220,.18);openScoreEntry({mode,score:game.score,contender,personalRecord})}
   function tickGalaga(){galaga.step++;const levelBoost=Math.max(0,galaga.level-1),alienSpeed=1.25+levelBoost*.28,enemyShotSpeed=5+levelBoost*.42,shootEvery=Math.max(13,34-levelBoost*3),maxVolley=Math.min(3,1+Math.floor(levelBoost/3));galaga.playerX=Math.max(22,Math.min(458,galaga.playerX+galaga.move*5));if(galaga.step%2===0){const living=galaga.aliens.filter(a=>a.alive);if(living.some(a=>a.x>449)||living.some(a=>a.x<31)){galaga.direction*=-1;living.forEach(a=>a.y+=13+Math.min(10,levelBoost*2))}living.forEach(a=>a.x+=galaga.direction*alienSpeed)}if(galaga.step%shootEvery===0){const shooters=galaga.aliens.filter(a=>a.alive);for(let i=0;i<maxVolley&&shooters.length;i++){const a=shooters[Math.floor(Math.random()*shooters.length)];galaga.enemyShots.push({x:a.x,y:a.y+12})}}galaga.bullets.forEach(b=>b.y-=10);galaga.enemyShots.forEach(b=>b.y+=enemyShotSpeed);galaga.bullets=galaga.bullets.filter(b=>b.y>0);galaga.enemyShots=galaga.enemyShots.filter(b=>b.y<480);for(const b of galaga.bullets){const hit=galaga.aliens.find(a=>a.alive&&Math.abs(a.x-b.x)<17&&b.y-10<=a.y+12&&b.y+5>=a.y-12);if(hit){hit.alive=false;b.y=-20;game.score+=10;$('#score').textContent=String(game.score).padStart(2,'0');for(let i=0;i<9;i++)galaga.effects.push({x:hit.x,y:hit.y,dx:Math.random()*5-2.5,dy:Math.random()*5-2.5,life:20,color:hit.row%2?'#e2a3ff':'#84fff1'});beep(830,.055)}}if(performance.now()>galaga.invulnerableUntil&&galaga.enemyShots.some(b=>Math.abs(b.x-galaga.playerX)<17&&b.y>425&&b.y<470)){galaga.lives--;galaga.invulnerableUntil=performance.now()+1100;galaga.enemyShots=galaga.enemyShots.filter(b=>!(Math.abs(b.x-galaga.playerX)<17&&b.y>425&&b.y<470));beep(190,.12);if(galaga.lives<=0){renderGalaga();endGame();return}}if(galaga.aliens.some(a=>a.alive&&a.y>420)){renderGalaga();endGame();return}if(!galaga.aliens.some(a=>a.alive)){galaga.level++;seedAliens();beep(980,.12)}renderGalaga()}
   function tick(){if(game.mode==='galaga'){tickGalaga();return}if(game.mode==='tetris'){tickTetris();return}game.dir=game.next;const h={x:game.snake[0].x+game.dir.x,y:game.snake[0].y+game.dir.y};if(h.x<0||h.y<0||h.x>=grid||h.y>=grid||game.snake.some((s,i)=>i<game.snake.length-1&&s.x===h.x&&s.y===h.y)){endGame();return}game.snake.unshift(h);if(h.x===game.apple.x&&h.y===game.apple.y){game.score+=10;$('#score').textContent=String(game.score).padStart(2,'0');game.particles=Array.from({length:13},()=>({x:(h.x+.5)*cell,y:(h.y+.5)*cell,life:18,dx:Math.random()*12-6,dy:Math.random()*12-6}));game.particles.forEach(p=>{p.x+=p.dx;p.y+=p.dy});placeApple();beep(850,.09)}else game.snake.pop();renderGame()}
@@ -486,20 +490,22 @@
     };
     showBeat();
   }
-  $('#gameStart').addEventListener('click',()=>{if(game.paused){game.paused=false;game.running=true;$('#gamePause').hidden=false;$('#gameOverlay').classList.add('hidden');game.timer=setInterval(tick,game.mode==='galaga'?32:game.mode==='tetris'?getTetrisSpeed():snakeSpeed);return}beginGameCountdown()});
+  $('#gameStart').addEventListener('click',()=>{if(game.paused){game.paused=false;game.running=true;document.body.classList.add('arcade-playing');$('#gamePause').hidden=false;$('#gameOverlay').classList.add('hidden');game.timer=setInterval(tick,game.mode==='galaga'?32:game.mode==='tetris'?getTetrisSpeed():snakeSpeed);return}beginGameCountdown()});
   $('#gamePause').addEventListener('click', () => { if (game.running) pauseGame(true); });
   $$('.dpad button').forEach(b=>{const dirs={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture?.(e.pointerId);turn(dirs[b.dataset.dir])});b.addEventListener('pointerup',()=>{if(game.mode==='galaga')galaga.move=0});b.addEventListener('pointercancel',()=>{if(game.mode==='galaga')galaga.move=0})});
-  const fireButton=$('#fireButton');let fireTimer;fireButton.addEventListener('pointerdown',e=>{e.preventDefault();fireButton.setPointerCapture?.(e.pointerId);fireGalaga();fireTimer=setInterval(fireGalaga,190)});['pointerup','pointercancel','pointerleave'].forEach(type=>fireButton.addEventListener(type,()=>clearInterval(fireTimer)));
+  const fireButton=$('#fireButton');let fireTimer;fireButton.addEventListener('pointerdown',e=>{if(!game.running||game.mode!=='galaga')return;e.preventDefault();fireButton.setPointerCapture?.(e.pointerId);fireGalaga();clearInterval(fireTimer);fireTimer=setInterval(fireGalaga,190)});['pointerup','pointercancel','lostpointercapture'].forEach(type=>fireButton.addEventListener(type,()=>clearInterval(fireTimer)));
   const heldGalagaKeys = new Set(); let keyboardFireTimer = null;
   function refreshGalagaKeyboardMove() { galaga.move = heldGalagaKeys.has('left') ? -1 : heldGalagaKeys.has('right') ? 1 : 0; }
   addEventListener('keydown', e => {
     if (location.hash !== '#juego' || !game.running) return;
+    // Lock browser/page shortcuts while a round is active; game controls below remain available.
+    e.preventDefault();
     if (game.mode === 'galaga') {
       const key = e.key.toLowerCase();
       if (key === 'arrowleft' || key === 'a') { e.preventDefault(); heldGalagaKeys.add('left'); refreshGalagaKeyboardMove(); }
       if (key === 'arrowright' || key === 'd') { e.preventDefault(); heldGalagaKeys.add('right'); refreshGalagaKeyboardMove(); }
       if (e.code === 'Space') { e.preventDefault(); fireGalaga(); if (!keyboardFireTimer) keyboardFireTimer = setInterval(fireGalaga, 190); }
-      return;
+      e.stopImmediatePropagation(); return;
     }
     if (game.mode === 'tetris') {
       if (e.key === 'ArrowLeft' && !tetrisCollision(-1,0)) { e.preventDefault(); tetr.x--; renderTetris(); }
@@ -507,11 +513,12 @@
       if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') { e.preventDefault(); rotateTetromino(); }
       if (e.key === 'ArrowDown') { e.preventDefault(); tickTetris(); }
       if (e.code === 'Space') { e.preventDefault(); while(!tetrisCollision(0,1))tetr.y++;lockTetromino(); }
-      return;
+      e.stopImmediatePropagation(); return;
     }
     const dirs={ArrowUp:{x:0,y:-1},w:{x:0,y:-1},ArrowDown:{x:0,y:1},s:{x:0,y:1},ArrowLeft:{x:-1,y:0},a:{x:-1,y:0},ArrowRight:{x:1,y:0},d:{x:1,y:0}};
-    if (dirs[e.key]) { e.preventDefault(); turn(dirs[e.key]); }
-  });
+    if (dirs[e.key]) turn(dirs[e.key]);
+    e.stopImmediatePropagation();
+  }, true);
   addEventListener('keyup', e => {
     const key = e.key.toLowerCase();
     if (key === 'arrowleft' || key === 'a') heldGalagaKeys.delete('left');
@@ -520,13 +527,17 @@
     if (e.code === 'Space' && keyboardFireTimer) { clearInterval(keyboardFireTimer); keyboardFireTimer = null; }
   });
   function releaseArcadeInputs() { heldGalagaKeys.clear(); refreshGalagaKeyboardMove(); clearInterval(keyboardFireTimer); keyboardFireTimer = null; }
+  ['dblclick','contextmenu','selectstart','dragstart'].forEach(type => document.addEventListener(type, e => {
+    if (!game.running) return;
+    e.preventDefault(); e.stopPropagation();
+  }, true));
   addEventListener('blur', releaseArcadeInputs);
   document.addEventListener('visibilitychange', () => { if (document.hidden) { releaseArcadeInputs(); if (game.running) pauseGame(true); } });
   const gameModeNames={snake:'GUSANO & MANZANA',galaga:'GALAGA',tetris:'TETRIS'}, gameHints={snake:'Usa las flechas o desliza sobre el tablero',galaga:'Arrastra para mover y disparar; usa izquierda/derecha + FIRE',tetris:'← → mover · ↑ girar · ↓ bajar · ESPACIO caída rápida'}, gameTips={snake:'Anticipa los giros y deja espacio para maniobrar. Cada manzana suma 10 puntos.',galaga:'Desplázate de lado a lado, dispara a la formación y esquiva los proyectiles.',tetris:'Completa filas para despejar el tablero. Las caídas múltiples dan más puntos.'};
   function selectGameMode(mode){if(!['snake','galaga','tetris'].includes(mode))return;if(game.mode===mode){if(mode==='galaga')renderGalaga();if(mode==='tetris')renderTetris();return}gameCueTimers.forEach(clearTimeout);gameCueTimers=[];$('#arcadeCountdown').hidden=true;$('#arcadeCountdown').classList.remove('is-visible');$('#gameStart').disabled=false;if(game.running)pauseGame(true);game.mode=mode;game.paused=false;$('#gameCanvas').hidden=mode!=='snake';galagaCanvas.hidden=mode!=='galaga';tetrisCanvas.hidden=mode!=='tetris';$('#gameModeName').textContent=gameModeNames[mode];$('#gameHint').textContent=gameHints[mode];$('#gameTip').textContent=gameTips[mode];$('#gameTipTitle').textContent=mode==='galaga'?'Consejo de piloto':mode==='tetris'?'Consejo de bloque':'Consejo de juego';$('#gameMascot').innerHTML=mode==='galaga'?'<div class="galaga-preview">✦</div><span>¡Defiende la galaxia!</span>':mode==='tetris'?'<div class="galaga-preview">▦</div><span>¡Completa las filas!</span>':'<div class="tiny-apple">●</div><div class="tiny-worm"><i></i><i></i><i></i></div><span>¡A por otra!</span>';fireButton.hidden=mode!=='galaga';$$('.game-tab').forEach(tab=>{const active=tab.dataset.mode===mode;tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active))});$('#bestScore').textContent=String(localStorage.getItem(`feria-${mode}-best`)||0).padStart(2,'0');renderLeaderboard(mode);$('#score').textContent='00';$('#gameEyebrow').textContent='RETO RÁPIDO';$('#gameTitle').textContent=mode==='galaga'?'¿Listo, piloto?':mode==='tetris'?'¿Listo para apilar?':'¿Listo para jugar?';$('#gameMessage').textContent=mode==='galaga'?'Derriba la flota invasora, esquiva sus disparos y protege la galaxia.':mode==='tetris'?'Gira y coloca las piezas para completar filas.':'Recoge las manzanas y evita chocar contigo mismo.';$('#gameStart').innerHTML='Empezar a jugar <span>→</span>';$('#recordCelebration').hidden=true;$('#recordCelebration').classList.remove('show','top-five');$('#gameOverlay').classList.remove('hidden','game-over','new-record','top-five-entry');if(mode==='galaga')renderGalaga();else if(mode==='tetris')renderTetris();else renderGame()}
   $$('.game-tab').forEach(tab=>tab.addEventListener('click',()=>selectGameMode(tab.dataset.mode)));
-  let touchStart=null;canvas.addEventListener('pointerdown',e=>{touchStart={x:e.clientX,y:e.clientY}});canvas.addEventListener('pointerup',e=>{if(!touchStart)return;const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y;touchStart=null;if(Math.max(Math.abs(dx),Math.abs(dy))<15)return;turn(Math.abs(dx)>Math.abs(dy)?{x:Math.sign(dx),y:0}:{x:0,y:Math.sign(dy)})});
-  let tetrTouch=null;tetrisCanvas.addEventListener('pointerdown',e=>{if(game.mode==='tetris'&&game.running)tetrTouch={x:e.clientX,y:e.clientY}});tetrisCanvas.addEventListener('pointerup',e=>{if(!tetrTouch)return;const dx=e.clientX-tetrTouch.x,dy=e.clientY-tetrTouch.y;tetrTouch=null;if(Math.max(Math.abs(dx),Math.abs(dy))<18){rotateTetromino();return}if(Math.abs(dx)>Math.abs(dy)){const steps=Math.max(1,Math.round(Math.abs(dx)/28));for(let i=0;i<steps;i++)turn({x:Math.sign(dx),y:0})}else if(dy>0){if(dy>100){while(!tetrisCollision(0,1))tetr.y++;lockTetromino()}else tickTetris()}else rotateTetromino()});
+  let touchStart=null;canvas.addEventListener('pointerdown',e=>{if(game.mode!=='snake'||!game.running)return;touchStart={id:e.pointerId,x:e.clientX,y:e.clientY};canvas.setPointerCapture?.(e.pointerId)});canvas.addEventListener('pointerup',e=>{if(!touchStart||e.pointerId!==touchStart.id)return;const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y;touchStart=null;if(Math.max(Math.abs(dx),Math.abs(dy))<15)return;turn(Math.abs(dx)>Math.abs(dy)?{x:Math.sign(dx),y:0}:{x:0,y:Math.sign(dy)})});canvas.addEventListener('pointercancel',()=>{touchStart=null});
+  let tetrTouch=null;tetrisCanvas.addEventListener('pointerdown',e=>{if(game.mode==='tetris'&&game.running){e.preventDefault();tetrTouch={id:e.pointerId,x:e.clientX,y:e.clientY};tetrisCanvas.setPointerCapture?.(e.pointerId)}});tetrisCanvas.addEventListener('pointerup',e=>{if(!tetrTouch||e.pointerId!==tetrTouch.id)return;const dx=e.clientX-tetrTouch.x,dy=e.clientY-tetrTouch.y;tetrTouch=null;if(Math.max(Math.abs(dx),Math.abs(dy))<18){rotateTetromino();return}if(Math.abs(dx)>Math.abs(dy)){const steps=Math.max(1,Math.round(Math.abs(dx)/28));for(let i=0;i<steps;i++)turn({x:Math.sign(dx),y:0})}else if(dy>0){if(dy>100){while(!tetrisCollision(0,1))tetr.y++;lockTetromino()}else tickTetris()}else rotateTetromino()});tetrisCanvas.addEventListener('pointercancel',()=>{tetrTouch=null});
   let galagaPointer=null,canvasFireTimer;function aimGalaga(e){const rect=galagaCanvas.getBoundingClientRect();if(rect.width)galaga.playerX=Math.max(22,Math.min(458,(e.clientX-rect.left)*480/rect.width))}galagaCanvas.addEventListener('pointerdown',e=>{if(!game.running||game.mode!=='galaga')return;e.preventDefault();galagaPointer=e.pointerId;galagaCanvas.setPointerCapture?.(e.pointerId);aimGalaga(e);fireGalaga();canvasFireTimer=setInterval(fireGalaga,190)});galagaCanvas.addEventListener('pointermove',e=>{if(game.mode==='galaga'&&game.running&&(e.pointerType==='mouse'?e.buttons===1:e.pointerId===galagaPointer))aimGalaga(e)});galagaCanvas.addEventListener('pointerup',e=>{if(e.pointerId===galagaPointer){galagaPointer=null;clearInterval(canvasFireTimer)}});galagaCanvas.addEventListener('pointercancel',()=>{galagaPointer=null;clearInterval(canvasFireTimer)});
   renderLeaderboard(game.mode);renderGame();renderGalaga();
 

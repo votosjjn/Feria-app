@@ -1,4 +1,4 @@
-import { FilesetResolver, ImageSegmenter } from './assets/models/mediapipe/vision_bundle.mjs';
+import { FilesetResolver, ImageSegmenter } from '../assets/models/mediapipe/vision_bundle.mjs';
 
 (() => {
   const $ = q => document.querySelector(q);
@@ -13,16 +13,16 @@ import { FilesetResolver, ImageSegmenter } from './assets/models/mediapipe/visio
   const matteCtx = matte.getContext('2d', { willReadFrequently: true });
   const buttons = { start: $('#cameraStart'), capture: $('#capturePhoto'), retake: $('#retakePhoto'), save: $('#savePhoto') };
   const scenes = {
-    tecnologia:'assets/fondos/tecnologia.svg',
-    programacion:'assets/fondos/programacion.svg',
-    feria:'assets/fondos/Feria%20empresarial_%20c%C3%B3digo%20y%20gaming%20futurista.png',
-    innovacion:'assets/fondos/innovacion.svg'
+    tecnologia:'assets/images/backgrounds/tecnologia.svg',
+    programacion:'assets/images/backgrounds/programacion.svg',
+    feria:'assets/images/backgrounds/feria-empresarial-codigo-gaming.png',
+    innovacion:'assets/images/backgrounds/innovacion.svg'
   };
   const images = {};
   const frameOverlay = new Image();
   let frameReady=false,frameEnabled=false;
   frameOverlay.onload=()=>{frameReady=true;drawComposition()};
-  frameOverlay.src='assets/fondos/marco-arcade.svg';
+  frameOverlay.src='assets/images/backgrounds/marco-feria.svg';
   let stream = null, segmenter = null, segmenterPromise = null, sourcePixels = null, personCanvas = null, scene = 'feria', processingTimer, confidenceValues = null, confidenceWidth = 0, confidenceHeight = 0;
   const threshold = $('#matteThreshold');
   const status = $('#photoStatus');
@@ -51,9 +51,9 @@ import { FilesetResolver, ImageSegmenter } from './assets/models/mediapipe/visio
     if (!segmenterPromise) {
       modelStatus.textContent = 'CARGANDO MODELO LOCAL';
       segmenterPromise = (async () => {
-        const vision = await FilesetResolver.forVisionTasks(new URL('./assets/models/mediapipe/wasm/', import.meta.url).href);
+        const vision = await FilesetResolver.forVisionTasks(new URL('../assets/models/mediapipe/wasm/', import.meta.url).href);
         segmenter = await ImageSegmenter.createFromOptions(vision, {
-          baseOptions: { modelAssetPath: new URL('./assets/models/mediapipe/selfie_segmenter.tflite', import.meta.url).href, delegate: 'CPU' },
+          baseOptions: { modelAssetPath: new URL('../assets/models/mediapipe/selfie_segmenter.tflite', import.meta.url).href, delegate: 'CPU' },
           runningMode: 'IMAGE', outputCategoryMask: false, outputConfidenceMasks: true
         });
         modelStatus.textContent = 'RECORTE LOCAL LISTO';

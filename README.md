@@ -6,6 +6,15 @@ Sitio web estatico. No necesita paquetes ni envia las fotos a servicios externos
 
 La camara necesita un origen seguro. En Windows, inicia `abrir-feria.bat`; abre el sitio local y deja abierta la ventana del servidor mientras lo usas. Tambien puedes usar cualquier servidor local con esta carpeta o desplegar el sitio bajo HTTPS.
 
+### Probar los controles en un celular
+
+1. Conecta el computador y el celular a la misma red Wi-Fi.
+2. Inicia `abrir-feria.bat` en el computador.
+3. En la ventana del servidor, busca la direccion de red que aparece como `http://...:8765/` y abrela en el navegador del celular.
+4. Entra a Juegos y prueba el pad, los deslizamientos del tablero, el disparo y la pausa. Si Windows pregunta, permite el acceso en redes privadas.
+
+La direccion `127.0.0.1` solo sirve en el computador. La camara del celular requiere HTTPS; por HTTP en la direccion local de la red, los juegos tactiles funcionan, pero el navegador puede bloquear el acceso a la camara.
+
 ## Secciones
 
 - Inicio y navegacion adaptable.

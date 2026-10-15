@@ -1,8 +1,18 @@
 ﻿$ErrorActionPreference = 'Stop'
 $rootPrefix = [System.IO.Path]::GetFullPath($PSScriptRoot) + [System.IO.Path]::DirectorySeparatorChar
-$listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Loopback, 8765)
+$listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Any, 8765)
 $listener.Start()
+$lanAddresses = [System.Net.NetworkInformation.NetworkInterface]::GetAllNetworkInterfaces() |
+    Where-Object { $_.OperationalStatus -eq [System.Net.NetworkInformation.OperationalStatus]::Up } |
+    ForEach-Object { $_.GetIPProperties().UnicastAddresses } |
+    Where-Object { $_.Address.AddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetwork -and
+        -not [System.Net.IPAddress]::IsLoopback($_.Address) -and
+        $_.Address.ToString() -notlike '169.254.*' } |
+    ForEach-Object { $_.Address.ToString() }
 Write-Host 'Feria Empresarial disponible en http://127.0.0.1:8765/'
+foreach ($address in $lanAddresses) {
+    Write-Host "Prueba desde un celular conectado a la misma red: http://${address}:8765/"
+}
 Write-Host 'Cierra esta ventana para detener el servidor.'
 try {
     while ($true) {

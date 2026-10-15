@@ -69,7 +69,7 @@ button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible { outline:2p
 .section-curtain[data-effect="arcade"] .transition-sprite { animation-duration:.65s; }
 #app[data-transition="photo"] .page.active { animation-duration:.66s; }
 #juego .game-tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
-#tetrisCanvas { display:block; width:100%; height:100%; image-rendering:pixelated; touch-action:none; }
+#tetrisCanvas { display:block; width:100%; height:100%; image-rendering:pixelated; }
 #tetrisCanvas[hidden] { display:none!important; }
 .game-board-wrap:has(#tetrisCanvas:not([hidden])) { background:radial-gradient(ellipse at 50% 20%,#14243d,#050916 77%); }
 @media(max-width:700px) { #inicio .hero h1 { font-size:clamp(40px,11vw,54px); } #juego .game-tabs { grid-template-columns:repeat(3,minmax(0,1fr)); } #juego .game-tab { min-width:0; padding-inline:3px; font-size:clamp(8px,2.5vw,11px); } }
@@ -1551,6 +1551,26 @@ body:has(#proyectos.page.active)>.site-footer {margin-top:-28px}
 }
 #juego .leaderboard-row.rank-1 .leaderboard-name::before,
 #juego .leaderboard-row.rank-1 .leaderboard-name::after {animation-duration:2.8s}
+
+/* Lightweight, kiosk friendly rendering while a game is running. */
+body.arcade-playing .ambient,
+body.arcade-playing .ambient * { animation:none!important; }
+body.arcade-playing .ambient { display:none!important; }
+body.arcade-playing { touch-action:none; overscroll-behavior:none; }
+body.arcade-playing #juego,
+body.arcade-playing #juego * { -webkit-user-select:none; user-select:none; }
+body.arcade-playing #juego .game-board-wrap,
+body.arcade-playing #juego .game-panel,
+body.arcade-playing #juego .game-side { backdrop-filter:none!important; }
+body.arcade-playing #juego .game-board-wrap,
+body.arcade-playing #juego canvas,
+#juego .dpad button,
+#juego .fire-button { touch-action:none; }
+#juego canvas { -webkit-user-select:none; user-select:none; }
+@media (max-width:760px), (pointer:coarse) {
+  #juego .section-wrap { scroll-behavior:auto; }
+  #juego .game-board-wrap { overscroll-behavior:contain; }
+}
 @keyframes championFrame {
   0%,100% {border-color:#ffe17c;box-shadow:inset 0 0 0 1px #ffe17c42,inset 0 -3px #d7a940,0 0 14px #ffd66d25}
   35% {border-color:#fff2ab;box-shadow:inset 0 0 0 2px #fff1a866,inset 0 -4px #ffd34f,0 0 27px #ffd66d8a,0 0 42px #ffba3e38}
@@ -1736,4 +1756,48 @@ body:has(#proyectos.page.active)>.site-footer {margin-top:-28px}
   #fotos .photo-cutout-note {
     display:none!important;
   }
+}
+
+/* Phone layout: keep the play field large and controls reachable without horizontal overflow. */
+@media(max-width:700px), (pointer:coarse) {
+  #juego .game-tab { min-height:54px; padding:6px 3px; line-height:1.2; }
+  #juego .game-board-wrap {
+    box-sizing:border-box;
+    width:min(100%,calc(100vw - 36px),460px);
+    max-width:100%;
+    margin:10px auto 0;
+  }
+  #juego .game-controls {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(120px,auto);
+    grid-template-areas:"hint hint" "pad pause" "pad fire";
+    align-items:center;
+    gap:8px 10px;
+    width:100%;
+    max-width:520px;
+    padding:10px 8px 12px;
+  }
+  #juego .game-hint { grid-area:hint; width:100%; max-width:none; min-height:34px; }
+  #juego .dpad { grid-area:pad; justify-self:center; grid-template-columns:repeat(3,clamp(36px,11vw,44px)); grid-template-rows:repeat(2,44px); gap:4px; }
+  #juego .dpad button { width:clamp(36px,11vw,44px); height:44px; font-size:19px; }
+  #juego .arcade-pause { grid-area:pause; width:100%; min-height:46px; }
+  #juego .fire-button { grid-area:fire; width:100%; min-width:0; min-height:46px; }
+  #juego .game-side { grid-template-columns:minmax(0,1fr); }
+}
+
+/* Make the institution's logo easier to recognize across the page. */
+.topbar .brand-logo { width:84px; height:84px; }
+.welcome-emblem { width:124px; height:124px; }
+.welcome-emblem img { width:96px; height:96px; object-fit:contain; }
+.loader-emblem { width:112px; height:112px; }
+.loader-emblem>img { width:84px; height:84px; object-fit:contain; }
+@media(max-width:1100px) and (min-width:701px) {
+  .topbar .brand-logo { width:70px; height:70px; }
+}
+@media(max-width:700px) {
+  .topbar .brand-logo { width:56px; height:56px; }
+  .welcome-emblem { width:108px; height:108px; }
+  .welcome-emblem img { width:82px; height:82px; }
+  .loader-emblem { width:102px; height:102px; }
+  .loader-emblem>img { width:76px; height:76px; }
 }

@@ -6,16 +6,16 @@
   <meta name="theme-color" content="#07111f">
   <meta name="description" content="Explora proyectos, juega y vive la Feria Empresarial de la I.E.D. Juan José Neira.">
   <title>Feria Empresarial · I.E.D. Juan José Neira</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="transitions.css">
-  <link rel="stylesheet" href="photo.css">
-  <link rel="stylesheet" href="arcade.css">
-  <link rel="stylesheet" href="arcade-phase.css?v=question-mark-cleanup-1">
+  <link rel="icon" type="image/svg+xml" href="assets/images/brand/favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/transitions.css">
+  <link rel="stylesheet" href="css/photo.css">
+  <link rel="stylesheet" href="css/arcade.css">
+  <link rel="stylesheet" href="css/arcade-phase.css?v=question-mark-cleanup-1">
 </head>
 <body>
   <div class="loader" id="loader" aria-label="Cargando la feria">
-    <div class="loader-emblem"><img src="images.png" alt=""><span class="loader-orbit"><i>&#10022;</i></span></div>
+    <div class="loader-emblem"><img src="assets/images/brand/escudo-juan-jose-neira.png" alt=""><span class="loader-orbit"><i>&#10022;</i></span></div>
     <p class="eyebrow">I.E.D. JUAN JOSÉ NEIRA</p>
     <h1>FERIA <span>EMPRESARIAL</span></h1>
     <p class="loader-sub">TÉCNICA EN PROGRAMACIÓN DE SOFTWARE</p>
@@ -23,14 +23,14 @@
     <div class="loading-track" role="progressbar" aria-label="Inicio de sistemas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="loading-fill" id="loadingFill"></div><div class="loading-runners" aria-hidden="true"><span class="boot-sprite sprite-bot"></span><span class="boot-sprite sprite-worm"></span><span class="boot-sprite sprite-ship"></span></div></div><div class="loading-percent"><span>SYSTEM BOOT</span><b id="loadingPercent">00%</b></div>
     <div class="boot-checks" aria-hidden="true"><span data-boot-step="0">PROJECTS</span><span data-boot-step="1">ARCADE</span><span data-boot-step="2">PHOTO SYSTEM</span><span data-boot-step="3">TECHNOLOGY</span></div>
   </div>
-  <div class="ambient" aria-hidden="true"><canvas class="ambient-particles" id="ambientParticles"></canvas><div class="ambient-grid"></div><div class="ambient-game-decor"><img class="ambient-mascot" src="arcade-mascot.svg" alt=""><span class="ambient-tetromino"><i></i><i></i><i></i><i></i></span><span class="ambient-worm"><i></i><i></i><i></i><i></i></span><span class="ambient-pixel-star">&#10022;</span></div>
+  <div class="ambient" aria-hidden="true"><canvas class="ambient-particles" id="ambientParticles"></canvas><div class="ambient-grid"></div><div class="ambient-game-decor"><img class="ambient-mascot" src="assets/images/brand/arcade-mascot.svg" alt=""><span class="ambient-tetromino"><i></i><i></i><i></i><i></i></span><span class="ambient-worm"><i></i><i></i><i></i><i></i></span><span class="ambient-pixel-star">&#10022;</span></div>
   <i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i><i class="spark s4"></i><i class="spark s5"></i><i class="spark s6"></i>
   <span class="ambient-code code-a">&lt; PLAY /&gt;</span><span class="ambient-code code-b">0101 · 0010</span><span class="ambient-energy"></span></div>
   <div class="section-curtain" id="sectionCurtain" aria-hidden="true"><div class="transition-sprite" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><p class="eyebrow">CAMBIANDO DE NIVEL</p><b id="curtainTitle">PREPARANDO LA FERIA</b><small>LISTO PARA EXPLORAR</small></div>
   <section class="welcome-screen" id="welcomeScreen" aria-label="Introducción de la feria" hidden>
     <div class="welcome-scanlines" aria-hidden="true"></div><div class="welcome-frame">
       <div class="welcome-topline"><span><i class="live-dot"></i>SYSTEM ONLINE</span><span>PLAYER 01 <b>&#9670;</b></span></div>
-      <div class="welcome-emblem"><img src="images.png" alt="Escudo de la I.E.D. Juan José Neira"><i>&#10022;</i><i>&#9670;</i></div>
+      <div class="welcome-emblem"><img src="assets/images/brand/escudo-juan-jose-neira.png" alt="Escudo de la I.E.D. Juan José Neira"><i>&#10022;</i><i>&#9670;</i></div>
       <p class="eyebrow">I.E.D. JUAN JOSÉ NEIRA · LEVEL 01</p><h1>FERIA<br><em>EMPRESARIAL</em></h1>
       <p class="welcome-sub">TÉCNICA EN PROGRAMACIÓN DE SOFTWARE</p>
       <button class="button button-primary welcome-start" id="welcomeStart"><span>&#9654;</span> START GAME <small>TOCA PARA ENTRAR</small></button>
@@ -38,7 +38,7 @@
     </div>
   </section>
   <header class="topbar">
-    <a class="brand" href="#inicio" aria-label="Ir al inicio"><img class="brand-logo" src="images.png" alt="Escudo de la I.E.D. Juan José Neira"><span class="brand-text">FERIA <b>EMPRESARIAL</b><small>I.E.D. JUAN JOSÉ NEIRA</small></span></a>
+    <a class="brand" href="#inicio" aria-label="Ir al inicio"><img class="brand-logo" src="assets/images/brand/escudo-juan-jose-neira.png" alt="Escudo de la I.E.D. Juan José Neira"><span class="brand-text">FERIA <b>EMPRESARIAL</b><small>I.E.D. JUAN JOSÉ NEIRA</small></span></a>
     <nav class="desktop-nav" aria-label="Navegación principal"><a href="#proyectos">Proyectos</a><a href="#juego">Juegos</a><a href="#fotos">Fotos</a></nav>
     <div class="header-tools"><button class="fullscreen-toggle" id="fullscreenToggle" aria-label="Activar pantalla completa" title="Pantalla completa">&#x26F6; <span>PANTALLA COMPLETA</span></button><button class="sound-toggle" id="soundToggle" aria-pressed="true" title="Activar o desactivar sonidos">&#9835; <span>Sonido activo</span></button></div>
   </header>
@@ -66,7 +66,7 @@
             <div class="project-carousel-heading"><span><i></i> EXPLORA LOS PROYECTOS</span><div class="project-carousel-arrows"><button type="button" id="projectPrevious" aria-label="Proyecto anterior">&#8592;</button><button type="button" id="projectNext" aria-label="Proyecto siguiente">&#8594;</button></div></div>
             <div class="project-gallery-stats"><span><b>08</b> PROYECTOS</span><span><b>01</b> DISPONIBLE</span><span><b>07</b> POR LLEGAR</span></div>
             <div class="project-gallery-viewport" id="projectGalleryViewport" tabindex="0" aria-label="Desliza para explorar las cartas de proyectos"><div class="project-gallery-track" id="projectGalleryTrack">
-              <button class="gallery-project-card is-selected" data-gallery-project="votacion" aria-pressed="true" aria-label="Proyecto 1: Sistema de Votación Electrónico"><span class="gallery-card-top"><b>PROYECTO 01</b><i>DESTACADO</i></span><span class="gallery-card-visual gallery-visual-voting"><img src="MI-Voto-S.A.S-logo-_1_.webp" alt=""><span>&#10022; SISTEMA DIGITAL</span></span><span class="gallery-card-copy"><b>Sistema de Votación Electrónico</b><small>Explorar proyecto <i>&#8599;</i></small></span></button>
+              <button class="gallery-project-card is-selected" data-gallery-project="votacion" aria-pressed="true" aria-label="Proyecto 1: Sistema de Votación Electrónico"><span class="gallery-card-top"><b>PROYECTO 01</b><i>DESTACADO</i></span><span class="gallery-card-visual gallery-visual-voting"><img src="assets/images/projects/logo-mi-voto.webp" alt=""><span>&#10022; SISTEMA DIGITAL</span></span><span class="gallery-card-copy"><b>Sistema de Votación Electrónico</b><small>Explorar proyecto <i>&#8599;</i></small></span></button>
               <button class="gallery-project-card" data-gallery-project="proyecto-2" aria-pressed="false" aria-label="Proyecto 2, próximamente"><span class="gallery-card-top"><b>PROYECTO 02</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-cyan"><span class="gallery-card-glyph">&#10038;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
               <button class="gallery-project-card" data-gallery-project="proyecto-3" aria-pressed="false" aria-label="Proyecto 3, próximamente"><span class="gallery-card-top"><b>PROYECTO 03</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-gold"><span class="gallery-card-glyph">&#9671;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
               <button class="gallery-project-card" data-gallery-project="proyecto-4" aria-pressed="false" aria-label="Proyecto 4, próximamente"><span class="gallery-card-top"><b>PROYECTO 04</b><i>EN CAMINO</i></span><span class="gallery-card-visual gallery-tone-violet"><span class="gallery-card-glyph">&#9638;</span><span>IDEA EN DESARROLLO</span></span><span class="gallery-card-copy"><b>Proyecto por presentar</b><small>Detalles próximamente <i>+</i></small></span></button>
@@ -80,7 +80,7 @@
           <div class="project-phone-wrap"><p class="phone-hint"><span></span> SELECCIÓN ACTUAL <b>TOCA UN PROYECTO</b></p>
             <div class="project-phone" aria-live="polite"><div class="phone-speaker"></div><div class="phone-camera"></div><div class="phone-screen">
               <div class="phone-status"><span>JN EXPO</span><span>&#9679;&#9679;&#9679; &#9648;</span></div><div class="phone-appbar"><span>PROYECTO <b id="phoneProjectNumber">01</b></span><span>•••</span></div>
-              <div class="phone-project-art" id="phoneProjectArt"><img id="phoneProjectLogo" src="MI-Voto-S.A.S-logo-_1_.webp" alt="Logo de Mi Voto"><span id="phoneProjectGlyph" hidden>&#10038;</span></div>
+              <div class="phone-project-art" id="phoneProjectArt"><img id="phoneProjectLogo" src="assets/images/projects/logo-mi-voto.webp" alt="Logo de Mi Voto"><span id="phoneProjectGlyph" hidden>&#10038;</span></div>
               <div class="phone-project-content"><span class="phone-project-category" id="phoneProjectCategory">SISTEMA DIGITAL · FERIA 2026</span><h2 id="phoneProjectTitle">Sistema de Votación Electrónico</h2><p id="phoneProjectDescription">Una propuesta digital para organizar y vivir una jornada de votación.</p><span class="phone-project-progress"><i></i></span><button id="phoneProjectAction" type="button">VER FICHA <b>&#8599;</b></button></div>
               <div class="phone-nav"><i></i><i></i><i></i></div>
             </div></div>
@@ -131,8 +131,8 @@
   </main>
   <footer class="site-footer"><span>FERIA EMPRESARIAL · PROGRAMACIÓN CREATIVA</span><span class="footer-credit">&#10022; CREADO POR <b>MIGUEL AMAYA</b> &#10022;</span><span>HECHO PARA EXPLORAR <b>&#10022;</b></span></footer>
   <div class="modal" id="projectModal" aria-hidden="true"><div class="modal-backdrop" data-close></div><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" data-close aria-label="Cerrar">×</button><div class="modal-art" id="modalArt"></div><div class="modal-content"><p class="eyebrow" id="modalEyebrow">PROYECTO 01</p><h2 id="modalTitle">Sistema de Votación Electrónico</h2><p id="modalDescription"></p><div class="modal-tags" id="modalTags"></div><div class="modal-actions"><button class="button button-primary" id="modalVisit">Ver proyecto <span>&#8599;</span></button><button class="button button-quiet" data-close>Volver a proyectos</button></div><small class="modal-footnote">Ficha preparada para añadir imágenes, integrantes, tecnologías y enlace cuando estén disponibles.</small></div></div></div>
-  <script src="app.js"></script>
-  <script type="module" src="photo.js"></script>
+  <script src="js/app.js"></script>
+  <script type="module" src="js/photo.js"></script>
 </body>
 </html>
 
