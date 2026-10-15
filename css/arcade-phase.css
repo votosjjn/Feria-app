@@ -1859,3 +1859,20 @@ img,video,canvas,svg { max-width:100%; }
   #inicio .label-bottom { font-size:8px; }
   #inicio .quick-dock { grid-template-columns:minmax(0,1fr); }
 }
+
+/* Snake difficulty picker shown after pressing Start. */
+#juego .snake-difficulty { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; width:min(100%,520px); margin:6px auto 12px; }
+#juego .snake-difficulty[hidden] { display:none; }
+#juego .snake-difficulty button { display:grid; align-content:center; justify-items:center; gap:5px; min-width:0; min-height:58px; padding:8px 6px; border:1px solid #496486; border-radius:5px; background:linear-gradient(145deg,#142642,#0a172b); color:#e6f2ff; cursor:pointer; font-family:var(--mono,monospace); }
+#juego .snake-difficulty button:hover,#juego .snake-difficulty button:focus-visible { border-color:#ffe071; outline:2px solid #ffe07155; outline-offset:1px; }
+#juego .snake-difficulty button[data-difficulty="easy"] { border-color:#64c99b; }
+#juego .snake-difficulty button[data-difficulty="medium"] { border-color:#d3ad56; }
+#juego .snake-difficulty button[data-difficulty="hard"] { border-color:#db786f; }
+#juego .snake-difficulty button b { font-size:clamp(10px,1.3vw,13px); letter-spacing:.08em; }
+#juego .snake-difficulty button small { color:#aebfd2; font:600 clamp(7px,1vw,9px)/1.3 var(--mono,monospace); text-align:center; }
+#juego .snake-difficulty button[aria-pressed="true"] { background:linear-gradient(145deg,#3b3928,#152342); box-shadow:inset 0 0 0 1px #ffe07166,0 0 15px #ffe07124; }
+@media(max-width:620px) {
+  #juego .snake-difficulty { gap:5px; margin:4px auto 8px; }
+  #juego .snake-difficulty button { min-height:48px; padding:6px 3px; }
+  #juego .snake-difficulty button small { font-size:7px; }
+}
