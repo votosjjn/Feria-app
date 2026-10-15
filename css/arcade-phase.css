@@ -1801,3 +1801,61 @@ body.arcade-playing #juego canvas,
   .loader-emblem { width:102px; height:102px; }
   .loader-emblem>img { width:76px; height:76px; }
 }
+
+/* Keep layouts and the animated JN badge inside their cards at every viewport size. */
+*,*::before,*::after { box-sizing:border-box; }
+img,video,canvas,svg { max-width:100%; }
+.section-wrap,#inicio .hero,.project-grid,.project-card,.photo-layout,.photo-stage,.scene-picker,
+#juego .game-layout,#juego .game-board-wrap { min-width:0; }
+.section-wrap { width:min(1380px,calc(100% - clamp(24px,6vw,80px))); }
+#inicio.page.active { min-height:0; }
+#inicio .hero { width:min(1400px,calc(100% - clamp(24px,6vw,80px))); padding:clamp(24px,5vh,60px) 0 20px; gap:clamp(16px,3vw,40px); }
+#inicio .hero-copy { min-width:0; }
+#inicio .hero-art { box-sizing:border-box; width:min(100%,430px); height:clamp(245px,32vw,330px); min-height:0; overflow:hidden; }
+#inicio .hero-art::before { inset:10px 12px; }
+#inicio .ring-a { width:min(250px,72%); height:auto; aspect-ratio:1; }
+#inicio .ring-b { width:min(226px,64%); height:auto; aspect-ratio:1; }
+#inicio .hero-sun { width:min(212px,58%); height:auto; aspect-ratio:1; }
+#inicio .hero-center { width:min(162px,44%); height:auto; aspect-ratio:1; padding:8px; }
+#inicio .hero-center span { font-size:clamp(54px,8vw,96px); }
+#inicio .hero-center small { font-size:clamp(11px,1.2vw,15px); }
+#inicio .hero-chip { width:clamp(28px,3vw,36px); height:clamp(28px,3vw,36px); }
+#inicio .chip-one,#inicio .chip-two { top:14%; }
+#inicio .chip-three { bottom:14%; }
+#inicio .label-bottom { max-width:80%; overflow:hidden; text-overflow:ellipsis; }
+#inicio .hero-meta { margin-top:clamp(12px,2.5vh,32px)!important; }
+.project-card,.photo-stage,.scene-picker,#juego .game-panel { overflow:hidden; }
+
+@media(max-width:900px) {
+  #inicio .hero { grid-template-columns:minmax(0,1fr); justify-items:center; text-align:center; }
+  #inicio .hero-copy { width:min(100%,680px); align-items:center; text-align:center; }
+  #inicio .hero-copy>.eyebrow { align-self:center; }
+  #inicio .hero-actions,#inicio .hero-meta { justify-content:center; }
+  #inicio .hero-art { width:min(100%,390px); height:clamp(230px,48vw,290px); }
+  #inicio .hero-center span { font-size:clamp(58px,13vw,88px); }
+  #inicio .hero-meta { padding-top:0; }
+}
+@media(max-width:620px) {
+  .section-wrap { width:calc(100% - 24px); padding-inline:0; }
+  #inicio .hero { width:calc(100% - 24px); padding:22px 0 14px; gap:10px; }
+  #inicio .hero-copy { padding-inline:0; }
+  #inicio .hero h1 { font-size:clamp(36px,10vw,54px); overflow-wrap:anywhere; }
+  #inicio .hero-desc { font-size:clamp(14px,4vw,16px); }
+  #inicio .hero-art { width:min(100%,360px); height:clamp(220px,70vw,260px); }
+  #inicio .ring-a { width:min(210px,72%); }
+  #inicio .ring-b { width:min(190px,65%); }
+  #inicio .hero-sun { width:min(168px,58%); }
+  #inicio .hero-center { width:min(130px,45%); }
+  #inicio .hero-center span { font-size:clamp(48px,15vw,72px); }
+  #inicio .hero-center small { font-size:12px; }
+  #inicio .hero-meta { margin-top:10px!important; }
+  #inicio .quick-dock { width:100%; }
+  #inicio .quick-dock>a,#inicio .quick-dock>a:first-child { min-width:0; }
+  #proyectos .project-grid { grid-template-columns:minmax(0,1fr); }
+}
+@media(max-width:360px) {
+  #inicio .hero-art { height:218px; }
+  #inicio .hero-chip { width:25px; height:25px; font-size:12px; }
+  #inicio .label-bottom { font-size:8px; }
+  #inicio .quick-dock { grid-template-columns:minmax(0,1fr); }
+}
