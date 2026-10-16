@@ -204,7 +204,9 @@
   const soundToggle = $('#soundToggle');
   function updateSoundControl() {
     soundToggle.setAttribute('aria-pressed', String(soundOn));
-    soundToggle.innerHTML = `${soundOn ? '♫' : '♪'} <span>${soundOn ? 'Sonido activo' : 'Sonido desactivado'}</span>`;
+    soundToggle.setAttribute('aria-label', soundOn ? 'Desactivar sonido' : 'Activar sonido');
+    soundToggle.firstChild.textContent = `${soundOn ? '♫' : '♪'} `;
+    soundToggle.querySelector('span').textContent = soundOn ? 'Sonido activo' : 'Sonido desactivado';
   }
   updateSoundControl();
   soundToggle.addEventListener('click', e => {
@@ -279,13 +281,14 @@
     'proyecto-8': { number:'08', title:'Proyecto 08', category:'ESPACIO RESERVADO', description:'Pronto aquí conocerás una nueva idea creada para la feria.', glyph:'✧' }
   };
   let gallerySelection='votacion';
+  const galleryViewport=$('#projectGalleryViewport');
+  const galleryCards=$$('[data-gallery-project]');
   function selectGalleryProject(key, centerCard=true) {
     const project=galleryProjects[key];if(!project)return;
     gallerySelection=key;
-    const cards=$$('[data-gallery-project]');
-    cards.forEach(card=>{const selected=card.dataset.galleryProject===key;card.classList.toggle('is-selected',selected);card.setAttribute('aria-pressed',String(selected))});
+    galleryCards.forEach(card=>{const selected=card.dataset.galleryProject===key;card.classList.toggle('is-selected',selected);card.setAttribute('aria-pressed',String(selected))});
     $('#projectCurrentIndex').textContent=project.number;
-    if(centerCard){const viewport=$('#projectGalleryViewport'),card=cards.find(item=>item.dataset.galleryProject===key);if(viewport&&card){const viewRect=viewport.getBoundingClientRect(),cardRect=card.getBoundingClientRect(),left=viewport.scrollLeft+cardRect.left-viewRect.left-(viewport.clientWidth-card.clientWidth)/2;viewport.scrollTo({left,behavior:'smooth'})}}
+    if(centerCard){const card=galleryCards.find(item=>item.dataset.galleryProject===key);if(card){const viewRect=galleryViewport.getBoundingClientRect(),cardRect=card.getBoundingClientRect(),left=galleryViewport.scrollLeft+cardRect.left-viewRect.left-(galleryViewport.clientWidth-card.clientWidth)/2;galleryViewport.scrollTo({left,behavior:'smooth'})}}
     $('#phoneProjectNumber').textContent=project.number;
     $('#phoneProjectTitle').textContent=project.title;
     $('#phoneProjectCategory').textContent=project.category;
@@ -295,20 +298,26 @@
     $('#phoneProjectGlyph').textContent=project.glyph;
     const action=$('#phoneProjectAction');action.disabled=!project.ready;action.innerHTML=project.ready?'VER FICHA <b>↗</b>':'FICHA EN PREPARACIÓN';
   }
-  const galleryKeys=$$('[data-gallery-project]').map(card=>card.dataset.galleryProject);
-  $$('[data-gallery-project]').forEach(card=>card.addEventListener('click',()=>selectGalleryProject(card.dataset.galleryProject)));
+  const galleryKeys=galleryCards.map(card=>card.dataset.galleryProject);
+  galleryCards.forEach(card => card.addEventListener('click',()=>selectGalleryProject(card.dataset.galleryProject)));
   function stepGallery(direction){const index=galleryKeys.indexOf(gallerySelection);selectGalleryProject(galleryKeys[(index+direction+galleryKeys.length)%galleryKeys.length])}
   $('#projectPrevious').addEventListener('click',()=>stepGallery(-1));
   $('#projectNext').addEventListener('click',()=>stepGallery(1));
-  $('#projectGalleryViewport').addEventListener('keydown',event=>{if(event.key==='ArrowLeft'){event.preventDefault();stepGallery(-1)}else if(event.key==='ArrowRight'){event.preventDefault();stepGallery(1)}});
+  galleryViewport.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'){event.preventDefault();stepGallery(-1)}else if(event.key==='ArrowRight'){event.preventDefault();stepGallery(1)}});
   let galleryScrollTimer=0;
-  $('#projectGalleryViewport').addEventListener('scroll',()=>{
+  function settleGalleryScroll() {
     clearTimeout(galleryScrollTimer);
-    galleryScrollTimer=setTimeout(()=>{const viewport=$('#projectGalleryViewport').getBoundingClientRect(),center=viewport.left+viewport.width/2;let nearest=null,distance=Infinity;
-      $$('[data-gallery-project]').forEach(card=>{const rect=card.getBoundingClientRect(),nextDistance=Math.abs(rect.left+rect.width/2-center);if(nextDistance<distance){distance=nextDistance;nearest=card}});
-      if(nearest&&nearest.dataset.galleryProject!==gallerySelection)selectGalleryProject(nearest.dataset.galleryProject,false);
-    },170);
+    galleryViewport.classList.remove('is-scrolling');
+    const viewport=galleryViewport.getBoundingClientRect(),center=viewport.left+viewport.width/2;let nearest=null,distance=Infinity;
+    galleryCards.forEach(card=>{const rect=card.getBoundingClientRect(),nextDistance=Math.abs(rect.left+rect.width/2-center);if(nextDistance<distance){distance=nextDistance;nearest=card}});
+    if(nearest&&nearest.dataset.galleryProject!==gallerySelection)selectGalleryProject(nearest.dataset.galleryProject,false);
+  }
+  galleryViewport.addEventListener('scroll',()=>{
+    galleryViewport.classList.add('is-scrolling');
+    clearTimeout(galleryScrollTimer);
+    galleryScrollTimer=setTimeout(settleGalleryScroll,140);
   },{passive:true});
+  galleryViewport.addEventListener('scrollend',settleGalleryScroll,{passive:true});
   window.FeriaProjects={refresh:()=>requestAnimationFrame(()=>selectGalleryProject(gallerySelection,true))};
   if($('#proyectos').classList.contains('active'))window.FeriaProjects.refresh();
   $('#phoneProjectAction').addEventListener('click',()=>{if(gallerySelection==='votacion')openProject('votacion')});
@@ -545,4 +554,3 @@
   renderLeaderboard(game.mode);renderGame();renderGalaga();
 
 })();
-

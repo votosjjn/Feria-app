@@ -1876,3 +1876,120 @@ img,video,canvas,svg { max-width:100%; }
   #juego .snake-difficulty button { min-height:48px; padding:6px 3px; }
   #juego .snake-difficulty button small { font-size:7px; }
 }
+
+/* Restore the home illustration's full frame while keeping its animation contained by scale. */
+#inicio .hero-art { overflow:visible; height:clamp(300px,31vw,350px); }
+#inicio .hero-art::before { inset:12px 12px; }
+#inicio .ring-a { width:min(230px,68%); }
+#inicio .ring-b { width:min(206px,61%); }
+#inicio .hero-sun { width:min(194px,56%); }
+#inicio .hero-center { width:min(154px,44%); }
+#inicio .hero-center span { font-size:clamp(54px,7vw,90px); }
+@media(max-width:900px) {
+  #inicio .hero-art { width:min(100%,390px); height:clamp(245px,48vw,300px); }
+  #inicio .ring-a { width:min(210px,70%); }
+  #inicio .ring-b { width:min(190px,63%); }
+  #inicio .hero-sun { width:min(174px,58%); }
+  #inicio .hero-center { width:min(136px,45%); }
+}
+@media(max-width:620px) {
+  #inicio .hero-art { height:clamp(232px,68vw,270px); }
+  #inicio .hero-art::before { inset:12px 10px; }
+  #inicio .ring-a { width:min(190px,70%); }
+  #inicio .ring-b { width:min(170px,62%); }
+  #inicio .hero-sun { width:min(156px,58%); }
+  #inicio .hero-center { width:min(122px,46%); }
+  #inicio .hero-center span { font-size:clamp(48px,14vw,68px); }
+}
+
+/* Reserve the header and footer in the home viewport so they cannot collide. */
+@media(min-width:701px) {
+  #inicio.page.active { min-height:calc(100svh - 160px); height:auto; }
+  #inicio .hero { flex:1 1 auto; min-height:0; }
+  body>.site-footer { position:relative; z-index:2; }
+}
+
+/* Clean up the layered JN / EXPO badge so its shadow stays inside the gold frame. */
+#inicio .hero-center {
+  box-sizing:border-box;
+  padding:8px 6px 10px;
+  overflow:hidden;
+  box-shadow:inset 0 0 0 3px #55ddf566,0 0 16px #55ddf522;
+  background:repeating-linear-gradient(0deg,#203c67 0 8px,#25456e 9px 10px);
+}
+#inicio .hero-center span {
+  max-width:100%;
+  font-size:clamp(54px,5.6vw,78px);
+  line-height:.92;
+  letter-spacing:-.08em;
+  text-shadow:3px 3px 0 #227f9b,0 0 13px #55ddf566;
+}
+#inicio .hero-center small {
+  margin-top:7px;
+  font-size:clamp(11px,1vw,14px);
+  letter-spacing:.28em;
+  text-indent:.28em;
+}
+@media(max-width:900px) {
+  #inicio .hero-center span { font-size:clamp(50px,12vw,70px); }
+}
+@media(max-width:620px) {
+  #inicio .hero-center { padding:6px 4px 8px; }
+  #inicio .hero-center span { font-size:clamp(44px,14vw,60px); }
+  #inicio .hero-center small { margin-top:5px; font-size:11px; }
+}
+
+/* Center the badge layers without using transforms that their animations override. */
+#inicio .hero-art { position:relative; }
+#inicio .hero-art::before {
+  box-sizing:border-box;
+  width:auto;
+  height:auto;
+}
+#inicio .hero-ring,
+#inicio .hero-sun,
+#inicio .hero-center {
+  position:absolute;
+  inset:0;
+  margin:auto;
+}
+/* The page-wide after-decoration was rendering a second, detached orbital ring below JN EXPO. */
+#app>#inicio.page.active::after { content:none!important; display:none!important; }
+
+@media(max-width:620px) and (max-height:760px) {
+  /* Keep the full badge above the fixed bottom navigation on short phone screens. */
+  #inicio .hero-art { height:190px; min-height:190px; }
+  #inicio .ring-a { width:min(145px,74%); }
+  #inicio .ring-b { width:min(130px,68%); }
+  #inicio .hero-sun { width:min(118px,48%); }
+  #inicio .hero-center { width:min(118px,46%); }
+  #inicio .label-bottom { bottom:20px; font-size:6px; }
+}
+@media(max-width:620px) and (max-height:680px) {
+  #inicio .hero-art { order:-1; }
+}
+
+/* Keep the sound control's footprint fixed while its state label changes. */
+#soundToggle {
+  display:inline-flex;
+  flex:0 0 auto;
+  align-items:center;
+  justify-content:center;
+  white-space:nowrap;
+}
+#soundToggle:hover,
+#soundToggle:active { transform:none; }
+@media(min-width:901px) {
+  #soundToggle { width:174px; min-width:174px; }
+}
+@media(max-width:900px) {
+  #soundToggle { width:42px; min-width:42px; padding:0; }
+}
+@media(max-width:360px) {
+  #soundToggle { width:33px; min-width:33px; }
+}
+
+/* Defer card transforms and selection work until native touch scrolling settles. */
+#proyectos .project-gallery-viewport.is-scrolling .gallery-project-card {
+  transition:none;
+}
