@@ -2547,3 +2547,185 @@ img,video,canvas,svg { max-width:100%; }
   #fotos .photo-stage { min-height:max-content; }
   #fotos .photo-canvas-wrap { flex:0 0 auto; height:auto; min-height:0; max-height:none; aspect-ratio:3/2; }
 }
+
+/* Turn the welcome card into the lit marquee and control deck of a cabinet. */
+.welcome-screen {
+  background:
+    radial-gradient(ellipse at 50% 40%,#214d72cc,transparent 38%),
+    radial-gradient(ellipse at 15% 80%,#a5317c24,transparent 34%),
+    repeating-linear-gradient(90deg,transparent 0 47px,#5bdcff08 48px 49px),
+    linear-gradient(180deg,#040a18,#0b1730 60%,#070b19);
+}
+.welcome-frame {
+  width:min(960px,100%);
+  min-height:min(560px,calc(100svh - 100px));
+  padding:106px clamp(28px,6vw,76px) 92px;
+  overflow:visible;
+  clip-path:none;
+  border:5px solid #83bad2;
+  border-radius:18px 18px 10px 10px;
+  background:
+    linear-gradient(90deg,transparent 0 34%,#58dcff0c 34% 34.2%,transparent 34.2%),
+    linear-gradient(145deg,#102342f7,#07142bf9 72%);
+  box-shadow:
+    0 0 0 4px #1b2b44,
+    0 0 0 8px #d09a4d,
+    0 12px 0 8px #643e32,
+    0 18px 0 8px #1a2538,
+    0 0 86px #00c8ff39,
+    inset 0 0 0 3px #050c1d,
+    inset 0 0 48px #36caff16;
+}
+.welcome-marquee {
+  position:absolute;
+  top:17px;
+  left:50%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:min(590px,76%);
+  min-height:55px;
+  padding:7px 15px;
+  transform:translateX(-50%);
+  border:3px solid #f4d078;
+  border-radius:5px;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 3px,#ffffff0a 4px 5px),
+    linear-gradient(180deg,#172d4b,#081329);
+  box-shadow:0 0 0 3px #081326,0 0 22px #43dfff55,inset 0 0 16px #28cfff1e;
+  color:#9eb7d5;
+  font:700 8px var(--mono,monospace);
+  letter-spacing:.12em;
+  white-space:nowrap;
+}
+.welcome-marquee b {
+  color:#ffe486;
+  font:900 clamp(16px,2.4vw,24px)/1 var(--mono,monospace);
+  letter-spacing:.08em;
+  text-shadow:2px 2px #a34b34,0 0 16px #ffce5d8a;
+}
+.welcome-topline {
+  top:83px;
+  left:clamp(18px,3vw,30px);
+  right:clamp(18px,3vw,30px);
+  padding-bottom:8px;
+  border-bottom:1px solid #78a6c844;
+}
+.welcome-frame>.welcome-emblem::before {
+  border-width:3px;
+  box-shadow:0 0 32px #32caff5a;
+}
+.welcome-frame>.welcome-emblem img {
+  box-shadow:0 0 0 7px #10294a,0 0 38px #43d8ff78;
+}
+.welcome-frame>.eyebrow { text-shadow:0 0 16px #4de7ff8a; }
+.welcome-frame h1 {
+  filter:drop-shadow(0 0 17px #54c9ff20);
+  text-shadow:4px 4px #0b2a55,7px 7px #020611,0 0 26px #4bcfff4a;
+}
+.welcome-frame h1 em {
+  color:#ffe078;
+  text-shadow:3px 3px #963f13,6px 6px #020611,0 0 24px #ffad2e78;
+}
+.welcome-frame>.welcome-start {
+  border-radius:4px!important;
+  box-shadow:0 6px 0 #9c5128,0 0 0 3px #5d311f,0 0 34px #ffca4b66!important;
+}
+.welcome-frame>.welcome-start:hover {
+  box-shadow:0 9px 0 #9c5128,0 0 0 3px #5d311f,0 0 42px #ffca4b99!important;
+}
+.welcome-bottom {
+  bottom:59px;
+  left:clamp(18px,3vw,30px);
+  right:clamp(18px,3vw,30px);
+}
+.welcome-control-deck {
+  position:absolute;
+  right:10%;
+  bottom:12px;
+  left:10%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  height:34px;
+  border:2px solid #526681;
+  border-radius:3px;
+  background:linear-gradient(180deg,#263753,#101b30);
+  box-shadow:inset 0 2px #ffffff16,0 3px #050b16;
+  color:#91aac2;
+  font:700 8px var(--mono,monospace);
+  letter-spacing:.2em;
+  text-shadow:0 1px #050b16;
+}
+.welcome-control-deck::before,.welcome-control-deck::after {
+  content:"";
+  position:absolute;
+  top:9px;
+  width:44px;
+  height:12px;
+  background:repeating-linear-gradient(90deg,#070e1c 0 3px,transparent 3px 6px);
+  opacity:.75;
+}
+.welcome-control-deck::before { left:12px; }
+.welcome-control-deck::after { right:12px; }
+.welcome-control-deck>span b { color:#ffd66d; }
+.deck-joystick {
+  position:absolute;
+  left:27%;
+  bottom:7px;
+  width:7px;
+  height:15px;
+  border-radius:2px;
+  background:linear-gradient(90deg,#7687a0,#d2d9e4,#66758c);
+}
+.deck-joystick::before {
+  content:"";
+  position:absolute;
+  top:-5px;
+  left:-4px;
+  width:15px;
+  height:10px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 28%,#ffb3a3,#f04462 58%,#8d183a);
+  box-shadow:0 0 9px #ff526a77;
+}
+.deck-buttons {
+  position:absolute;
+  right:27%;
+  display:flex;
+  gap:7px;
+}
+.deck-buttons i {
+  width:12px;
+  height:12px;
+  border:2px solid #ffdf85;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 25%,#ffefaa,#f4a732 55%,#944626);
+  box-shadow:0 2px #482c2a;
+}
+.deck-buttons i:nth-child(2) { border-color:#8df2ff; background:radial-gradient(circle at 35% 25%,#c5fbff,#20bcd3 58%,#17536e); }
+.deck-buttons i:nth-child(3) { border-color:#f8a5da; background:radial-gradient(circle at 35% 25%,#ffd2f0,#db4a9d 58%,#73306e); }
+@media(max-width:620px) {
+  .welcome-frame {
+    min-height:min(650px,calc(100svh - 24px));
+    padding:104px 20px 58px;
+    border-width:4px;
+    border-radius:13px 13px 8px 8px;
+    box-shadow:0 0 0 3px #1b2b44,0 0 0 6px #d09a4d,0 8px 0 6px #643e32,0 0 48px #00c8ff39,inset 0 0 0 2px #050c1d;
+  }
+  .welcome-marquee {
+    top:13px;
+    width:82%;
+    min-height:48px;
+    justify-content:center;
+  }
+  .welcome-marquee>span { display:none; }
+  .welcome-topline { top:71px; }
+  .welcome-bottom { bottom:18px; }
+  .welcome-control-deck { display:none; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .welcome-marquee { box-shadow:0 0 0 3px #081326,0 0 12px #43dfff35,inset 0 0 16px #28cfff1e; }
+}
