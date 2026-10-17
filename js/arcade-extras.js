@@ -178,6 +178,23 @@
       c.fillStyle = '#412a2c'; c.fillRect(x - 9 + stride, y + 29, 7, 2); c.fillRect(x + 2 - stride, y + 29, 7, 2);
       c.restore();
     }
+    function drawBarrelBot(c, x, y, frame, throwing) {
+      const bob = Math.floor(frame / 12) % 2;
+      drawPixelSprite(c, x - 15, y + bob, [
+        '..MMMMMM..', '.MCCCCCCM.', 'MCCWWWWCCM', 'MCCCCCCCCM',
+        '..BBBBBB..', '.BBBBBBBB.', '.BB....BB.', '..BB..BB..',
+        '.LL....LL.', 'LLL....LLL'
+      ], { M: '#c3d7e8', C: '#297d91', W: '#e9fbff', B: '#35bfd0', L: '#243b59' }, 3);
+      c.fillStyle = '#15283e'; c.fillRect(x - 7, y + 13 + bob, 4, 4); c.fillRect(x + 3, y + 13 + bob, 4, 4);
+      c.fillStyle = '#35bfd0';
+      c.fillRect(x - 20, y + 17 + bob, 7, 5);
+      if (throwing) {
+        c.fillRect(x + 12, y + 18 + bob, 15, 5);
+        c.fillRect(x + 23, y + 20 + bob, 5, 10);
+      } else {
+        c.fillRect(x + 12, y + 18 + bob, 9, 5);
+      }
+    }
 
     function tickFlight() {
       if (flight.ended) return;
@@ -575,7 +592,8 @@
         const previousBottom = p.y + 24; p.vy = Math.min(8, p.vy + .5); p.y += p.vy; p.grounded = false;
         for (const floor of floors) if (p.vy >= 0 && previousBottom <= floor.y && p.y + 24 >= floor.y && p.x + 13 > floor.left && p.x - 13 < floor.right) { p.y = floor.y - 24; p.vy = 0; p.grounded = true; break; }
       }
-      if (tower.frame % Math.max(52, 105 - (tower.level - 1) * 8) === 0) tower.barrels.push({ x: 430, y: 107, floor: 4, dir: -1, falling: false });
+      const barrelInterval = Math.max(52, 105 - (tower.level - 1) * 8);
+      if (tower.frame % barrelInterval === 0) tower.barrels.push({ x: 100, y: 107, floor: 4, dir: 1, falling: false });
       if (tower.frame % Math.max(112, 230 - (tower.level - 1) * 20) === 0 && tower.fireballs.length < Math.min(3, 1 + Math.floor((tower.level - 1) / 2))) {
         const floorIndex = Math.min(2, Math.floor((tower.level - 1) / 2));
         tower.fireballs.push({ x: tower.frame % 2 ? 42 : 438, y: floors[floorIndex].y - 13, floor: floorIndex, dir: tower.frame % 2 ? 1 : -1, falling: false, phase: tower.frame });
@@ -638,7 +656,7 @@
         return true;
       });
       if (p.y < 120 && p.x > 390 && !tower.gems.length) {
-        if (tower.level >= 5) { finish('¡RESCATASTE A PAULINE!'); return; }
+        if (tower.level >= 5) { finish('¡LLEGASTE A LA CIMA!'); return; }
         tower.level++; tower.transition = 48; tower.input = { x: 0, y: 0 }; buildTowerLevel(); playGameSound('tower', 'level');
       } else if (p.y < 120 && p.x > 390 && tower.gems.length && tower.frame % 40 === 0) {
         playGameSound('tower', 'hit');
@@ -688,6 +706,9 @@
         c.fillStyle = '#d6e4f0'; c.fillRect(-11, -11, 22, 8); c.fillStyle = '#ffffff'; c.fillRect(-8, -10, 7, 3);
         c.fillStyle = '#647c96'; c.fillRect(5, -10, 5, 6); c.restore();
       });
+      const barrelInterval = Math.max(52, 105 - (tower.level - 1) * 8);
+      const throwPhase = tower.frame % barrelInterval;
+      drawBarrelBot(c, 64, 76, tower.frame, throwPhase >= barrelInterval - 12);
       tower.barrels.forEach(b => {
         c.save(); c.translate(b.x, b.y); c.rotate(b.falling ? 0 : tower.frame * b.dir * .13);
         c.fillStyle = '#512d2c'; c.fillRect(-13, -13, 26, 26);

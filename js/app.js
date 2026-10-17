@@ -52,7 +52,8 @@
   // Layered pixel particles: slow background drift, midground shapes, foreground sparkles.
   const particleCanvas = $('#ambientParticles');
   const particleContext = particleCanvas.getContext('2d');
-  const ambient = { width: 0, height: 0, ratio: 1, items: [], bursts: [], scene: 'home', frame: 0 };
+  const ambient = { width: 0, height: 0, ratio: 1, items: [], bursts: [], scene: 'home', frame: 0, lastFrame: 0 };
+  let ambientTimer;
   const scenePalettes = {
     inicio: ['#35d9ff', '#25a5ff', '#ffd21f', '#ff8a32'],
     juego: ['#45ddff', '#737bff', '#b45dff', '#ffd21f'],
@@ -66,13 +67,13 @@
     ambient.items.forEach((dot, i) => { dot.hue = palette[i % palette.length]; });
   }
   function resizeAmbient() {
-    ambient.ratio = Math.min(1.5, window.devicePixelRatio || 1);
+    ambient.ratio = Math.min(1, window.devicePixelRatio || 1);
     ambient.width = window.innerWidth; ambient.height = window.innerHeight;
     particleCanvas.width = Math.round(ambient.width * ambient.ratio);
     particleCanvas.height = Math.round(ambient.height * ambient.ratio);
     particleContext.setTransform(ambient.ratio, 0, 0, ambient.ratio, 0, 0);
     const weakDevice = (navigator.hardwareConcurrency || 8) <= 4 || matchMedia('(max-width: 700px)').matches;
-    const count = Math.min(weakDevice ? 76 : 142, Math.max(weakDevice ? 38 : 58, Math.round(ambient.width * ambient.height / (weakDevice ? 18000 : 10500))));
+    const count = Math.min(weakDevice ? 32 : 60, Math.max(weakDevice ? 20 : 36, Math.round(ambient.width * ambient.height / (weakDevice ? 25000 : 17000))));
     ambient.items = Array.from({ length: count }, (_, i) => ({
       x: Math.random() * ambient.width, y: Math.random() * ambient.height,
       size: [1, 1.5, 2, 3, 4][Math.floor(Math.random() * 5)],
@@ -81,11 +82,19 @@
       kind: Math.random(), hue: (scenePalettes[ambient.scene] || scenePalettes.inicio)[i % 4]
     }));
   }
+  function scheduleAmbientFrame() {
+    ambientTimer = setTimeout(() => {
+      ambientTimer = 0;
+      ambient.frame = requestAnimationFrame(drawAmbient);
+    }, 1000 / 30);
+  }
   function drawAmbient(time) {
-    if (document.hidden) { ambient.frame = requestAnimationFrame(drawAmbient); return; }
+    if (document.hidden) { ambient.frame = 0; ambient.lastFrame = 0; return; }
+    const frameScale = ambient.lastFrame ? Math.min(2, (time - ambient.lastFrame) / (1000 / 60)) : 1;
+    ambient.lastFrame = time;
     const c = particleContext; c.clearRect(0, 0, ambient.width, ambient.height);
     for (const dot of ambient.items) {
-      dot.y -= dot.speed; dot.x += dot.drift;
+      dot.y -= dot.speed * frameScale; dot.x += dot.drift * frameScale;
       if (dot.y < -5) { dot.y = ambient.height + 5; dot.x = Math.random() * ambient.width; }
       if (dot.x < -5) dot.x = ambient.width + 5; else if (dot.x > ambient.width + 5) dot.x = -5;
       const flicker = (Math.sin(time / (dot.depth > .8 ? 280 : 1100) + dot.phase) + 1) / 2;
@@ -104,9 +113,26 @@
         c.fillRect(burst.x + Math.cos(bit.angle) * distance, burst.y + Math.sin(bit.angle) * distance, bit.size, bit.size);
       });
     }
-    c.globalAlpha = 1; ambient.frame = requestAnimationFrame(drawAmbient);
+    c.globalAlpha = 1;
+    scheduleAmbientFrame();
   }
-  resizeAmbient(); addEventListener('resize', resizeAmbient, { passive: true });
+  let ambientResizeTimer;
+  resizeAmbient();
+  addEventListener('resize', () => {
+    clearTimeout(ambientResizeTimer);
+    ambientResizeTimer = setTimeout(resizeAmbient, 120);
+  }, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(ambient.frame);
+      clearTimeout(ambientTimer);
+      ambient.frame = 0;
+      ambientTimer = 0;
+      ambient.lastFrame = 0;
+    } else if (!reducedMotion && !ambient.frame && !ambientTimer) {
+      ambient.frame = requestAnimationFrame(drawAmbient);
+    }
+  });
   setAmbientScene((location.hash || '#inicio').slice(1));
   addEventListener('pointerdown', event => {
     if (reducedMotion || event.target.closest('button,a,input,video')) return;
@@ -133,6 +159,7 @@
   let requestedGameMode = null;
   let previousPage = '';
   let curtainTimer;
+  let curtainFrame;
   function route() {
     const id = (location.hash || '#inicio').slice(1);
     const target = pages.find(p => p.id === id) || $('#inicio');
@@ -146,8 +173,15 @@
       $('#curtainTitle').textContent = titles[target.id] || 'PREPARANDO LA FERIA';
       const curtain = $('#sectionCurtain');
       const effect = target.id === 'juego' ? 'arcade' : target.id === 'proyectos' ? 'scan' : target.id === 'fotos' ? 'photo' : previousPage === 'juego' ? 'crt' : 'scan';
-      curtain.dataset.effect = effect; curtain.classList.remove('shown'); void curtain.offsetWidth; curtain.classList.add('shown');
-      clearTimeout(curtainTimer); curtainTimer = setTimeout(() => curtain.classList.remove('shown'), 680);
+      curtain.dataset.effect = effect;
+      curtain.classList.remove('shown');
+      cancelAnimationFrame(curtainFrame);
+      clearTimeout(curtainTimer);
+      curtainFrame = requestAnimationFrame(() => {
+        curtain.classList.add('shown');
+        curtainFrame = 0;
+      });
+      curtainTimer = setTimeout(() => curtain.classList.remove('shown'), 680);
     }
     previousPage = target.id;
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -566,8 +600,8 @@
     game.running=false;document.body.classList.remove('arcade-playing');game.paused=showOverlay;$('#gamePause').hidden=true;
     galaga.move=0;clearInterval(game.timer);clearInterval(fireTimer);clearInterval(canvasFireTimer);releaseArcadeInputs();
     if(showOverlay){
-      $('#gameEyebrow').textContent='PARTIDA EN PAUSA';$('#gameTitle').textContent='Seguimos cuando quieras';
-      $('#gameMessage').textContent=`Llevas ${game.score} puntos. Tu partida espera aquí.`;
+      $('#gameEyebrow').textContent='PARTIDA EN PAUSA';$('#gameTitle').textContent='¡Pausa de nivel!';
+      $('#gameMessage').textContent=`Tus ${game.score} puntos siguen guardados. ¿Listo para volver?`;
       $('#gameStart').innerHTML='Continuar jugando <span>→</span>';$('#gameOverlay').classList.remove('hidden','game-over','new-record');$('#recordCelebration').hidden=true;
     }
   }
@@ -576,8 +610,8 @@
     if(personalRecord){localStorage.setItem(storageKey,String(game.score));$('#bestScore').textContent=String(game.score).padStart(2,'0')}
     const contender=isScoreContender(mode,game.score);
     $('#gameEyebrow').textContent=personalRecord?'NEW PERSONAL BEST':contender?'TOP 5 CONTENDER':'ARCADE RUN COMPLETE';
-    $('#gameTitle').textContent=message.startsWith('¡')?'¡MISIÓN CUMPLIDA!':'GAME OVER';
-    $('#gameMessage').textContent=`${message||'PARTIDA FINALIZADA'}  ·  SCORE ${Number(game.score).toLocaleString('es-CO')}`;
+    $('#gameTitle').textContent=message.startsWith('¡')?'¡RETO SUPERADO!':'¡OTRA RONDA!';
+    $('#gameMessage').textContent=`${message.startsWith('¡')?'¡Buen trabajo!':'La próxima va mejor.'}  ·  PUNTOS ${Number(game.score).toLocaleString('es-CO')}`;
     $('#gameStart').innerHTML='JUGAR DE NUEVO <span>↻</span>';$('#gameOverlay').dataset.gameMode=mode;
     $('#gameOverlay').classList.remove('hidden','new-record','top-five-entry');$('#gameOverlay').classList.add('game-over');
     $('#recordCelebration').hidden=true;$('#recordCelebration').classList.remove('show','top-five');beep(220,.18);
@@ -726,8 +760,6 @@
   const gameModeNames={snake:'GUSANO & MANZANA',galaga:'GALAGA',tetris:'TETRIS',flight:'FLAPPY BIRD',bomber:'BOMBERMAN',maze:'PAC-MAN',tower:'DONKEY KONG'};
   const gameHints={snake:'Flechas/WASD o desliza · acelera con abajo · cambia ritmo antes de iniciar',galaga:'Mueve y dispara · barra espaciadora o botón FIRE · esquiva proyectiles',tetris:'← → mover · ↑ girar · ↓ bajar · espacio caída rápida con puntos',flight:'Elige dificultad: cada 4 tuberías sube el nivel y aumenta el reto',bomber:'Muévete · una bomba al inicio · escapa de la onda · recoge mejoras de radio y bombas',maze:'Desliza o usa flechas · recoge puntos de poder · los fantasmas reviven tras un tiempo',tower:'Escala y salta barriles · recoge martillos (4 golpes) · evita fueguitos'};
   const gameTips={snake:'Cada manzana aumenta la velocidad. Puedes cruzar el borde y reaparecer al otro lado; evita tu propia cola.',galaga:'Derriba la formación, esquiva las ráfagas y aprovecha los destellos al eliminar enemigos.',tetris:'Completa varias filas a la vez para sumar más puntos. La pieza fantasma muestra dónde aterrizará.',flight:'Elige fácil, medio o difícil. La dificultad sube por niveles; incluso el modo fácil acaba acelerándose.',bomber:'Empiezas con una bomba. Las cajas esconden mejoras de radio o capacidad; toca y aléjate antes de la explosión.',maze:'Las bolitas grandes activan el poder. Los fantasmas capturados regresan al laberinto al cabo de unos segundos.',tower:'Recoge los martillos para cuatro golpes; los fueguitos y barriles recorren las plataformas.'};
-  const gameTitles={snake:'¿Listo para jugar?',galaga:'¿Listo, piloto?',tetris:'¿Listo para apilar?',flight:'¡A volar!',bomber:'¡Enciende la mecha!',maze:'¡Waka waka!',tower:'¡A rescatar a Pauline!'};
-  const gameDescriptions={snake:'Recoge las manzanas y evita chocar contigo mismo.',galaga:'Derriba la flota invasora, esquiva sus disparos y protege la galaxia.',tetris:'Gira y coloca las piezas para completar filas.',flight:'Guía al pajarito azul entre las tuberías y consigue la mejor puntuación.',bomber:'Destruye bloques con bombas, encuentra el camino y atrapa a los fantasmas.',maze:'Come todos los puntos del laberinto y escapa de los fantasmas.',tower:'Recoge repuestos, encuentra martillos con cuatro golpes y alcanza la cima de la torre.'};
   const gameIcons={snake:'🐍🍎',galaga:'👾',tetris:'🧩',flight:'🐦',bomber:'💣',maze:'🟡',tower:'🦍'};
   const gameTabLabels={snake:'Gusano & Manzana',galaga:'Galaga',tetris:'Tetris',flight:'Flappy Bird',bomber:'Bomberman',maze:'Pac-Man',tower:'Donkey Kong'};
   $$('.game-tab').forEach(tab=>{const label=gameTabLabels[tab.dataset.mode];if(label)tab.innerHTML=`<span aria-hidden="true">${gameIcons[tab.dataset.mode]}</span>${label}`});
@@ -742,7 +774,7 @@
     canvas.hidden=mode!=='snake'&&!extra;galagaCanvas.hidden=mode!=='galaga';tetrisCanvas.hidden=mode!=='tetris';
     canvas.setAttribute('aria-label',`${gameModeNames[mode]} · tablero de juego`);
     $('#gameModeName').textContent=gameModeNames[mode];$('#gameHint').textContent=gameHints[mode];$('#gameTip').textContent=gameTips[mode];
-    $('#gameTipTitle').textContent=mode==='galaga'?'Consejo de piloto':mode==='tetris'?'Consejo de bloque':mode==='maze'?'Consejo de Pac-Man':mode==='tower'?'Consejo de Donkey Kong':mode==='bomber'?'Consejo de Bomberman':mode==='flight'?'Consejo de vuelo':'Consejo de juego';
+    $('#gameTipTitle').textContent=mode==='galaga'?'Consejo de piloto':mode==='tetris'?'Consejo de bloque':mode==='maze'?'Consejo de laberinto':mode==='tower'?'Consejo de aventura':mode==='bomber'?'Consejo de estrategia':mode==='flight'?'Consejo de vuelo':'Consejo de juego';
     $('#gameMascot').innerHTML=mode==='snake'?'<div class="tiny-apple">●</div><div class="tiny-worm"><i></i><i></i><i></i></div><span>¡A por otra!</span>':`<div class="galaga-preview">${gameIcons[mode]||'✦'}</div><span>${gameModeNames[mode]}</span>`;
     fireButton.hidden=!['galaga','flight','bomber','tower'].includes(mode);
     $('#flightDifficulty').hidden=mode!=='flight';
@@ -751,9 +783,9 @@
     const jumpButton=$('#jumpButton');jumpButton.hidden=mode!=='tower';
     $$('.game-tab').forEach(tab=>{const active=tab.dataset.mode===mode;tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active))});
     $('#bestScore').textContent=String(localStorage.getItem(`feria-${mode}-best`)||0).padStart(2,'0');renderLeaderboard(mode);$('#score').textContent='00';
-    $('#gameEyebrow').textContent='RETO RÁPIDO';$('#gameTitle').textContent=gameTitles[mode];$('#gameMessage').textContent=gameDescriptions[mode];
-    $('#gameStart').innerHTML='Empezar a jugar <span>→</span>';$('#recordCelebration').hidden=true;$('#recordCelebration').classList.remove('show','top-five');
-    $('#gameOverlay').classList.remove('hidden','game-over','new-record','top-five-entry');
+    $('#gameEyebrow').textContent='ARCADE READY';$('#gameTitle').textContent='¡Presiona para jugar!';$('#gameMessage').textContent='Entra al juego y supera tu propio récord.';
+    $('#gameStart').innerHTML='PRESIONA PARA JUGAR <span>→</span>';$('#recordCelebration').hidden=true;$('#recordCelebration').classList.remove('show','top-five');
+    $('#gameOverlay').dataset.gameMode=mode;$('#gameOverlay').classList.remove('hidden','game-over','new-record','top-five-entry');
     if(mode==='galaga')renderGalaga();else if(mode==='tetris')renderTetris();else if(extra)arcadeExtras.render(mode);else renderGame();
   }
   $$('.game-tab').forEach(tab=>tab.addEventListener('click',()=>selectGameMode(tab.dataset.mode)));

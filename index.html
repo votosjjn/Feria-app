@@ -8,10 +8,10 @@
   <title>Feria Empresarial · I.E.D. Juan José Neira</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/brand/favicon.svg">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/transitions.css">
+  <link rel="stylesheet" href="css/transitions.css?v=optimized-transitions-1">
   <link rel="stylesheet" href="css/photo.css">
-  <link rel="stylesheet" href="css/arcade.css?v=jn-expo-mobile-type-1">
-  <link rel="stylesheet" href="css/arcade-phase.css?v=cabinet-welcome-1">
+  <link rel="stylesheet" href="css/arcade.css?v=jn-expo-mobile-type-2">
+  <link rel="stylesheet" href="css/arcade-phase.css?v=game-start-backgrounds-1">
 </head>
 <body>
   <div class="loader" id="loader" aria-label="Cargando la feria">
@@ -31,13 +31,23 @@
     <div class="welcome-scanlines" aria-hidden="true"></div><div class="welcome-frame">
       <div class="welcome-marquee" aria-hidden="true"><span>I.E.D. JUAN JOSÉ NEIRA</span><b>FERIA ARCADE</b><span>PLAYER 01 · LEVEL 01</span></div>
       <div class="welcome-topline"><span><i class="live-dot"></i> SISTEMA EN L&Iacute;NEA</span><span>JUGADOR 01 <b>&#9670;</b></span></div>
-      <div class="welcome-emblem"><img src="assets/images/brand/escudo-juan-jose-neira.png" alt="Escudo de la I.E.D. Juan José Neira"><i>&#10022;</i><i>&#9670;</i></div>
-      <p class="eyebrow">I.E.D. JUAN JOS&Eacute; NEIRA <span aria-hidden="true">&middot;</span> LEVEL 01</p><h1>FERIA<br><em>EMPRESARIAL</em></h1>
-      <p class="welcome-sub">T&Eacute;CNICA EN PROGRAMACI&Oacute;N DE SOFTWARE</p>
-      <p class="welcome-tagline">Ideas, talento y proyectos que cobran vida.</p>
-      <button class="button button-primary welcome-start" id="welcomeStart"><span>&#9654;</span> INICIAR EXPERIENCIA <small>PRESIONA PARA EXPLORAR</small></button>
+      <div class="welcome-display">
+        <div class="welcome-emblem"><img src="assets/images/brand/escudo-juan-jose-neira.png" alt="Escudo de la I.E.D. Juan José Neira"><i>&#10022;</i><i>&#9670;</i></div>
+        <p class="eyebrow">I.E.D. JUAN JOS&Eacute; NEIRA <span aria-hidden="true">&middot;</span> LEVEL 01</p><h1>FERIA<br><em>EMPRESARIAL</em></h1>
+        <p class="welcome-sub">T&Eacute;CNICA EN PROGRAMACI&Oacute;N DE SOFTWARE</p>
+        <p class="welcome-tagline">Ideas, talento y proyectos que cobran vida.</p>
+        <button class="button button-primary welcome-start" id="welcomeStart"><span>&#9654;</span> INICIAR EXPERIENCIA <small>PRESIONA PARA EXPLORAR</small></button>
+      </div>
       <div class="welcome-bottom"><span>PROYECTOS <b>&#10022;</b> ARCADE <b>&#10022;</b> RECUERDOS</span><span>LISTA PARA EXPLORAR <b>&#9670;</b></span></div>
-      <div class="welcome-control-deck" aria-hidden="true"><i class="deck-joystick"></i><span>INSERT COIN <b>·</b> PRESS START</span><span class="deck-buttons"><i></i><i></i><i></i></span></div>
+      <div class="welcome-control-deck" aria-hidden="true">
+        <span class="deck-player"><i class="deck-joystick"></i><i class="deck-buttons"><i></i><i></i><i></i></i></span>
+        <span class="deck-coin"><i></i> INSERT COIN</span>
+        <span class="deck-player"><i class="deck-joystick"></i><i class="deck-buttons"><i></i><i></i><i></i></i></span>
+      </div>
+      <div class="welcome-coin-door" aria-hidden="true">
+        <div class="coin-door-panel"><span class="coin-slot"></span><span class="coin-door-label">INSERT COIN</span><span class="coin-return"><i></i> RETURN</span><b class="coin-power"></b></div>
+      </div>
+      <div class="welcome-cabinet-base" aria-hidden="true"><i></i><span>J J N&nbsp; · &nbsp;ARCADE SYSTEM</span><i></i></div>
     </div>
   </section>
   <header class="topbar">
@@ -102,16 +112,16 @@
               <canvas id="gameCanvas" width="480" height="480" aria-label="Tablero de Gusano y Manzana"></canvas>
               <canvas id="galagaCanvas" width="480" height="480" aria-label="Tablero de Galaga" hidden></canvas>
               <canvas id="tetrisCanvas" width="480" height="480" aria-label="Tablero de Tetris" hidden></canvas>
-              <div class="game-overlay" id="gameOverlay">
+              <div class="game-overlay" id="gameOverlay" data-game-mode="snake">
                 <div class="overlay-orbit" id="overlayIcon">&#10038;</div>
                 <div class="arcade-countdown" id="arcadeCountdown" aria-live="assertive" hidden><span>ROUND START</span><b>3</b><small>GET READY</small></div>
                 <div class="record-celebration" id="recordCelebration" hidden><span>&#10022; NEW HIGH SCORE &#10022;</span><b>ARCADE LEGEND</b></div>
-                <p class="eyebrow" id="gameEyebrow">RETO RÁPIDO</p>
-                <h2 id="gameTitle">¿Listo para jugar?</h2>
-                <p id="gameMessage">Recoge las manzanas y evita chocar contigo mismo.</p>
+                <p class="eyebrow" id="gameEyebrow">ARCADE READY</p>
+                <h2 id="gameTitle">¡Presiona para jugar!</h2>
+                <p id="gameMessage">Entra al juego y supera tu propio récord.</p>
                 <div class="snake-difficulty" id="snakeDifficulty" role="group" aria-label="Elige la dificultad" hidden><button type="button" data-difficulty="easy"><b>FÁCIL</b><small>Más tiempo para girar</small></button><button type="button" data-difficulty="medium"><b>MEDIO</b><small>Ritmo equilibrado</small></button><button type="button" data-difficulty="hard"><b>DIFÍCIL</b><small>Ritmo rápido</small></button></div>
                 <div class="snake-difficulty flight-difficulty" id="flightDifficulty" role="group" aria-label="Elige la dificultad de vuelo" hidden><button type="button" data-flight-difficulty="easy"><b>FÁCIL</b><small>Empieza tranquilo; escala</small></button><button type="button" data-flight-difficulty="medium"><b>MEDIO</b><small>Progresión equilibrada</small></button><button type="button" data-flight-difficulty="hard"><b>DIFÍCIL</b><small>Desafío desde el inicio</small></button></div>
-                <button class="button button-primary" id="gameStart">Empezar a jugar <span>&#8594;</span></button>
+                <button class="button button-primary" id="gameStart">PRESIONA PARA JUGAR <span>&#8594;</span></button>
               </div>
             </div>
             <div class="game-controls">
@@ -169,8 +179,8 @@
   </main>
   <footer class="site-footer"><span>FERIA EMPRESARIAL · PROGRAMACIÓN CREATIVA</span><span class="footer-credit">&#10022; CREADO POR <b>MIGUEL AMAYA</b> &#10022;</span><span>HECHO PARA EXPLORAR <b>&#10022;</b></span></footer>
   <div class="modal" id="projectModal" aria-hidden="true"><div class="modal-backdrop" data-close></div><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" data-close aria-label="Cerrar">×</button><div class="modal-art" id="modalArt"></div><div class="modal-content"><p class="eyebrow" id="modalEyebrow">PROYECTO 01</p><h2 id="modalTitle">Sistema de Votación Electrónico</h2><p id="modalDescription"></p><div class="modal-tags" id="modalTags"></div><div class="modal-actions"><button class="button button-primary" id="modalVisit">Ver proyecto <span>&#8599;</span></button><button class="button button-quiet" data-close>Volver a proyectos</button></div><small class="modal-footnote">Ficha preparada para añadir imágenes, integrantes, tecnologías y enlace cuando estén disponibles.</small></div></div></div>
-  <script src="js/arcade-extras.js?v=arcade-dk-hammer-fall-1"></script>
-  <script src="js/app.js?v=face-filters-welcome-4"></script>
+  <script src="js/arcade-extras.js?v=barrel-bot-1"></script>
+  <script src="js/app.js?v=generic-game-start-2"></script>
   <script type="module" src="js/photo.js?v=face-filters-welcome-6"></script>
 </body>
 </html>
