@@ -74,7 +74,7 @@
   flex:1;
   min-width:130px
 }
-.camera-actions [hidden],.photo-tools[hidden],.button[hidden] {
+.camera-actions [hidden],.photo-tools[hidden],.photo-filters[hidden],.button[hidden] {
   display:none
 }
 .photo-tools {

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#10122e"/><stop offset=".66" stop-color="#202746"/><stop offset="1" stop-color="#371e43"/></linearGradient>
+    <linearGradient id="floor" x2="0" y2="1"><stop stop-color="#1b2e50"/><stop offset="1" stop-color="#090e20"/></linearGradient>
+    <radialGradient id="spot"><stop stop-color="#ffcf72" stop-opacity=".42"/><stop offset="1" stop-color="#ffcf72" stop-opacity="0"/></radialGradient>
+    <pattern id="stars" width="94" height="81" patternUnits="userSpaceOnUse"><path fill="#83ecff" d="M17 14h4v4h-4zm62 45h3v3h-3z"/><path fill="#ffda83" d="M48 34h3v3h-3z"/></pattern>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h900v600H0z"/><path fill="url(#stars)" d="M0 0h900v430H0z"/><path fill="url(#spot)" d="M0 0h900v600H0z"/>
+  <path fill="#151c36" stroke="#55dff1" stroke-width="3" d="M18 122h157v268H18zM725 105h157v285H725z"/>
+  <path fill="#0a1228" stroke="#ffbf67" stroke-width="2" d="M32 139h129v232H32zM739 122h129v249H739z"/>
+  <path fill="#222a49" d="M43 153h107v14H43zM750 136h107v14H750z"/><path fill="#ffca6c" d="M52 180h28v18H52zm39 0h28v18H91zm39 0h13v18h-13zm659-17h28v18h-28zm39 0h28v18h-28zm39 0h13v18h-13z"/>
+  <path fill="none" stroke="#4fe0f0" stroke-width="5" d="M48 227h96m-96 19h69m-69 19h88m-88 19h49m-49 19h95m-95 19h66M755 210h96m-96 19h69m-69 19h88m-88 19h49m-49 19h95m-95 19h66"/>
+  <path fill="#1e2849" stroke="#ffbd62" stroke-width="4" d="M214 113h472v255H214z"/><path fill="#090f21" stroke="#61e5ee" stroke-width="2" d="M232 131h436v219H232z"/>
+  <path fill="#1d2849" d="M248 148h404v181H248z"/><path fill="#10192e" d="M268 166h364v139H268z"/>
+  <path fill="none" stroke="#5de6ef" stroke-width="5" d="M286 184h328v104H286z"/><path fill="none" stroke="#ffd06e" stroke-width="2" d="M298 196h304v80H298z"/>
+  <g fill="#f1d77c"><path d="M317 217h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12z"/><path d="M337 251h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12zm38 0h12v12h-12z"/></g>
+  <path fill="url(#floor)" d="M0 416h900v184H0z"/><path fill="none" stroke="#57dff0" stroke-opacity=".78" stroke-width="3" d="M0 425h900M0 468h900M0 524h900M450 416v184M0 600l450-184 450 184M150 600l300-184 300 184"/>
+  <path fill="none" stroke="#ffbd67" stroke-opacity=".56" stroke-width="4" d="M0 444h145m610 0h145M0 497h78m744 0h78"/>
+  <g fill="#ffda76"><path d="M188 92h9v9h-9zM706 80h9v9h-9zM191 395h12v12h-12zM698 391h12v12h-12z"/><path d="M170 104h46v3h-46zM687 93h46v3h-46z"/></g>
+  <text x="42" y="55" fill="#f0f7ff" font-family="monospace" font-size="16" font-weight="bold" letter-spacing="4">ARCADE AFTER HOURS</text>
+  <text x="44" y="78" fill="#8edee9" font-family="monospace" font-size="9" letter-spacing="3">LUZ · JUEGO · RECUERDOS</text>
+</svg>

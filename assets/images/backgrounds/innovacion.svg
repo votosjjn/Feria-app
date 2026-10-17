@@ -1,1 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600"><defs><linearGradient id="a" x2="1" y2="1"><stop stop-color="#183548"/><stop offset=".5" stop-color="#14263e"/><stop offset="1" stop-color="#171c31"/></linearGradient><radialGradient id="b"><stop stop-color="#f3c65e" stop-opacity=".35"/><stop offset="1" stop-color="#f3c65e" stop-opacity="0"/></radialGradient></defs><path fill="url(#a)" d="M0 0h900v600H0z"/><circle cx="628" cy="276" r="283" fill="url(#b)"/><g fill="none" stroke="#f0cb6d" stroke-opacity=".62"><path d="M590 160c-69 0-117 49-117 110 0 43 19 69 45 93 15 14 19 27 21 46h102c2-19 7-32 21-46 27-26 44-53 44-94 0-62-48-109-116-109z" stroke-width="3"/><path d="M550 430h81M555 454h71M566 477h49M581 500h20" stroke-width="4" stroke-linecap="round"/><path d="M590 87V44M440 146l-31-31M742 146l31-31M423 273h-44M793 273h-44" stroke-width="3"/></g><g fill="#88d0d4"><circle cx="448" cy="197" r="4"/><circle cx="748" cy="194" r="4"/><circle cx="705" cy="110" r="3"/></g><text x="63" y="90" fill="#d8e2e4" font-family="monospace" font-size="18" letter-spacing="5">IMAGINA / PRUEBA</text><text x="63" y="126" fill="#98acb6" font-family="monospace" font-size="11" letter-spacing="3">UNA IDEA PUEDE CAMBIARLO TODO</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="sky" x2="1" y2="1"><stop stop-color="#171b3d"/><stop offset=".52" stop-color="#30315d"/><stop offset="1" stop-color="#111a33"/></linearGradient>
+    <radialGradient id="idea"><stop stop-color="#ffd97b" stop-opacity=".4"/><stop offset="1" stop-color="#ac82ff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="stage" x2="0" y2="1"><stop stop-color="#46406e"/><stop offset="1" stop-color="#17172e"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h900v600H0z"/><path fill="url(#idea)" d="M0 0h900v600H0z"/>
+  <path fill="none" stroke="#c0a4ff" stroke-opacity=".34" stroke-width="2" d="M0 113h95l48 48h120M900 100h-94l-50 50H638M0 468h106l45-45h153M900 462H794l-45-45H590"/>
+  <path fill="#1c2545" stroke="#ad93f3" stroke-opacity=".72" stroke-width="3" d="M0 166h111l41 40v170l-41 40H0zM900 157H789l-41 40v189l41 40h111z"/>
+  <path fill="#242c4d" d="M15 188h83v204H15zM802 179h83v224h-83z"/>
+  <g fill="none" stroke="#ffda79" stroke-width="4" stroke-opacity=".75"><path d="M40 226h33m-33 22h48m-48 22h28m-28 22h45m-45 22h34m-34 22h52m-52 22h26M818 217h33m-33 22h48m-48 22h28m-28 22h45m-45 22h34m-34 22h52m-52 22h26"/></g>
+  <path fill="#252749" stroke="#f5ca70" stroke-width="3" d="M283 112h334v234H283z"/><path fill="#111a34" stroke="#82e7ed" stroke-opacity=".78" stroke-width="2" d="M299 128h302v201H299z"/>
+  <path fill="#443b70" d="M324 156h77v5h-77zm0 18h124v5H324zm0 18h92v5h-92zm0 18h152v5H324zm0 18h109v5H324z"/>
+  <path fill="#ffe08a" d="M324 156h22v5h-22zm62 18h23v5h-23zm-12 18h35v5h-35zm55 18h28v5h-28z"/>
+  <path fill="#77e6d2" d="M405 156h34v5h-34zm66 18h34v5h-34zm-38 18h48v5h-48zm-10 18h21v5h-21z"/>
+  <path fill="url(#stage)" d="M0 450h900v150H0z"/><path fill="none" stroke="#f0c66a" stroke-opacity=".65" stroke-width="3" d="M0 451h900M0 487h900M450 450v150M238 450l-81 150m505-150 81 150"/>
+  <path fill="none" stroke="#a88ff4" stroke-opacity=".62" stroke-width="2" d="M204 394h492m-454 15h416"/>
+  <g fill="#ffd871"><path d="M141 107h12v12h-12zM744 99h10v10h-10zM171 409h11v11h-11zM717 402h12v12h-12z"/><path d="M137 126h50v3h-50zM715 117h48v3h-48z"/></g>
+  <text x="43" y="55" fill="#fff0bd" font-family="monospace" font-size="17" font-weight="bold" letter-spacing="4">INNOVACIÓN / SIGUIENTE NIVEL</text>
+  <text x="45" y="78" fill="#c3b2f0" font-family="monospace" font-size="9" letter-spacing="3">IMAGINA · PRUEBA · TRANSFORMA</text>
+</svg>

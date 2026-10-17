@@ -1,7 +1,20 @@
 ﻿$ErrorActionPreference = 'Stop'
 $rootPrefix = [System.IO.Path]::GetFullPath($PSScriptRoot) + [System.IO.Path]::DirectorySeparatorChar
-$listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Any, 8765)
-$listener.Start()
+$listener = $null
+$port = 0
+foreach ($candidate in 8765..8785) {
+    $probe = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Any, $candidate)
+    try {
+        $probe.Server.ExclusiveAddressUse = $true
+        $probe.Start()
+        $listener = $probe
+        $port = $candidate
+        break
+    } catch [System.Net.Sockets.SocketException] {
+        $probe.Stop()
+    }
+}
+if (-not $listener) { throw 'No hay puertos libres entre 8765 y 8785. Cierra otro servidor local y vuelve a intentarlo.' }
 $lanAddresses = [System.Net.NetworkInformation.NetworkInterface]::GetAllNetworkInterfaces() |
     Where-Object { $_.OperationalStatus -eq [System.Net.NetworkInformation.OperationalStatus]::Up } |
     ForEach-Object { $_.GetIPProperties().UnicastAddresses } |
@@ -9,19 +22,32 @@ $lanAddresses = [System.Net.NetworkInformation.NetworkInterface]::GetAllNetworkI
         -not [System.Net.IPAddress]::IsLoopback($_.Address) -and
         $_.Address.ToString() -notlike '169.254.*' } |
     ForEach-Object { $_.Address.ToString() }
-Write-Host 'Feria Empresarial disponible en http://127.0.0.1:8765/'
+Write-Host "Feria Empresarial disponible en http://localhost:$port/"
+Write-Host "Tambien puedes abrir http://127.0.0.1:$port/"
 foreach ($address in $lanAddresses) {
-    Write-Host "Prueba desde un celular conectado a la misma red: http://${address}:8765/"
+    Write-Host "Prueba desde un celular conectado a la misma red: http://${address}:$port/"
 }
 Write-Host 'Cierra esta ventana para detener el servidor.'
+Start-Process "http://localhost:$port/"
 try {
     while ($true) {
         $client = $listener.AcceptTcpClient()
         try {
+            $client.ReceiveTimeout = 2500
+            $client.SendTimeout = 2500
             $stream = $client.GetStream()
             $reader = [System.IO.StreamReader]::new($stream, [System.Text.Encoding]::ASCII, $false, 1024, $true)
             $requestLine = $reader.ReadLine()
-            while ($reader.ReadLine() -ne '') { }
+            $headersComplete = $false
+            while ($true) {
+                $headerLine = $reader.ReadLine()
+                if ($null -eq $headerLine) { break }
+                if ($headerLine -eq '') {
+                    $headersComplete = $true
+                    break
+                }
+            }
+            if (-not $headersComplete) { continue }
             $parts = $requestLine -split ' '
             $method = $parts[0]
             $requestPath = if ($parts.Length -gt 1) { ($parts[1] -split '\?')[0] } else { '/' }
@@ -65,4 +91,3 @@ try {
 } finally {
     $listener.Stop()
 }
-

@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/transitions.css">
   <link rel="stylesheet" href="css/photo.css">
   <link rel="stylesheet" href="css/arcade.css?v=jn-expo-mobile-type-1">
-  <link rel="stylesheet" href="css/arcade-phase.css?v=sound-touch-carousel-1">
+  <link rel="stylesheet" href="css/arcade-phase.css?v=face-filters-welcome-4">
 </head>
 <body>
   <div class="loader" id="loader" aria-label="Cargando la feria">
@@ -29,18 +29,19 @@
   <div class="section-curtain" id="sectionCurtain" aria-hidden="true"><div class="transition-sprite" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><p class="eyebrow">CAMBIANDO DE NIVEL</p><b id="curtainTitle">PREPARANDO LA FERIA</b><small>LISTO PARA EXPLORAR</small></div>
   <section class="welcome-screen" id="welcomeScreen" aria-label="Introducción de la feria" hidden>
     <div class="welcome-scanlines" aria-hidden="true"></div><div class="welcome-frame">
-      <div class="welcome-topline"><span><i class="live-dot"></i>SYSTEM ONLINE</span><span>PLAYER 01 <b>&#9670;</b></span></div>
+      <div class="welcome-topline"><span><i class="live-dot"></i> SISTEMA EN L&Iacute;NEA</span><span>JUGADOR 01 <b>&#9670;</b></span></div>
       <div class="welcome-emblem"><img src="assets/images/brand/escudo-juan-jose-neira.png" alt="Escudo de la I.E.D. Juan José Neira"><i>&#10022;</i><i>&#9670;</i></div>
-      <p class="eyebrow">I.E.D. JUAN JOSÉ NEIRA · LEVEL 01</p><h1>FERIA<br><em>EMPRESARIAL</em></h1>
-      <p class="welcome-sub">TÉCNICA EN PROGRAMACIÓN DE SOFTWARE</p>
-      <button class="button button-primary welcome-start" id="welcomeStart"><span>&#9654;</span> START GAME <small>TOCA PARA ENTRAR</small></button>
-      <div class="welcome-bottom"><span>ARCADE MODE</span><span>READY <b>&#9670;</b></span></div>
+      <p class="eyebrow">I.E.D. JUAN JOS&Eacute; NEIRA <span aria-hidden="true">&middot;</span> LEVEL 01</p><h1>FERIA<br><em>EMPRESARIAL</em></h1>
+      <p class="welcome-sub">T&Eacute;CNICA EN PROGRAMACI&Oacute;N DE SOFTWARE</p>
+      <p class="welcome-tagline">Ideas, talento y proyectos que cobran vida.</p>
+      <button class="button button-primary welcome-start" id="welcomeStart"><span>&#9654;</span> INICIAR EXPERIENCIA <small>PRESIONA PARA EXPLORAR</small></button>
+      <div class="welcome-bottom"><span>PROYECTOS <b>&#10022;</b> ARCADE <b>&#10022;</b> RECUERDOS</span><span>LISTA PARA EXPLORAR <b>&#9670;</b></span></div>
     </div>
   </section>
   <header class="topbar">
     <a class="brand" href="#inicio" aria-label="Ir al inicio"><img class="brand-logo" src="assets/images/brand/escudo-juan-jose-neira.png" alt="Escudo de la I.E.D. Juan José Neira"><span class="brand-text">FERIA <b>EMPRESARIAL</b><small>I.E.D. JUAN JOSÉ NEIRA</small></span></a>
     <nav class="desktop-nav" aria-label="Navegación principal"><a href="#proyectos">Proyectos</a><a href="#juego">Juegos</a><a href="#fotos">Fotos</a></nav>
-    <div class="header-tools"><button class="fullscreen-toggle" id="fullscreenToggle" aria-label="Activar pantalla completa" title="Pantalla completa">&#x26F6; <span>PANTALLA COMPLETA</span></button><button class="sound-toggle" id="soundToggle" aria-pressed="true" title="Activar o desactivar sonidos">&#9835; <span>Sonido activo</span></button></div>
+    <div class="header-tools"><button class="fullscreen-toggle" id="fullscreenToggle" aria-label="Activar pantalla completa" title="Pantalla completa">&#x26F6; <span>PANTALLA COMPLETA</span></button><span class="header-tool-divider" aria-hidden="true"></span><div class="audio-tools"><button class="sound-toggle" id="soundToggle" aria-pressed="true" title="Activar o desactivar sonidos">&#9835; <span>Sonido activo</span></button><label class="volume-control" for="masterVolume"><span aria-hidden="true">&#128266;</span><input id="masterVolume" type="range" min="0" max="100" value="70" aria-label="Volumen general"><output id="masterVolumeValue" for="masterVolume">70%</output></label></div></div>
   </header>
   <main id="app">
     <section class="page active" id="inicio" data-transition="home">
@@ -91,9 +92,41 @@
 
     <section class="page" id="juego" data-transition="game"><div class="wrap section-wrap"><a class="back-link" href="#inicio">&#8592; <span>Volver al menú</span></a><div class="section-heading"><div><p class="eyebrow">SELECCI&#211;N DE EXPERIENCIA · 02</p><h1>Arcade <em>Zone</em><span class="heading-dot">.</span></h1></div><p>Elige un juego y supera tu propio récord.</p></div>
       <div class="game-layout">
-        <div class="game-tabs" role="tablist" aria-label="Selecciona un juego"><button class="game-tab active" role="tab" aria-selected="true" data-mode="snake"><span>&#9673;</span> Gusano &amp; Manzana</button><button class="game-tab" role="tab" aria-selected="false" data-mode="galaga"><span>&#10022;</span> Galaga</button><button class="game-tab" role="tab" aria-selected="false" data-mode="tetris"><span>&#9638;</span> Tetris</button></div>
-        <div class="game-panel"><div class="game-status"><span><i class="live-dot"></i> <span id="gameModeName">GUSANO &amp; MANZANA</span></span><span class="game-score">PUNTOS <b id="score">00</b></span></div><div class="game-play-area"><div class="game-board-wrap"><canvas id="gameCanvas" width="480" height="480" aria-label="Tablero de Gusano y Manzana"></canvas><canvas id="galagaCanvas" width="480" height="480" aria-label="Tablero de Galaga" hidden></canvas><canvas id="tetrisCanvas" width="480" height="480" aria-label="Tablero de Tetris" hidden></canvas><div class="game-overlay" id="gameOverlay"><div class="overlay-orbit" id="overlayIcon">&#10038;</div><div class="arcade-countdown" id="arcadeCountdown" aria-live="assertive" hidden><span>ROUND START</span><b>3</b><small>GET READY</small></div><div class="record-celebration" id="recordCelebration" hidden><span>&#10022; NEW HIGH SCORE &#10022;</span><b>ARCADE LEGEND</b></div><p class="eyebrow" id="gameEyebrow">RETO RÁPIDO</p><h2 id="gameTitle">¿Listo para jugar?</h2><p id="gameMessage">Recoge las manzanas y evita chocar contigo mismo.</p><div class="snake-difficulty" id="snakeDifficulty" role="group" aria-label="Elige la dificultad" hidden><button type="button" data-difficulty="easy"><b>FÁCIL</b><small>Más tiempo para girar</small></button><button type="button" data-difficulty="medium"><b>MEDIO</b><small>Ritmo equilibrado</small></button><button type="button" data-difficulty="hard"><b>DIFÍCIL</b><small>Ritmo rápido</small></button></div><button class="button button-primary" id="gameStart">Empezar a jugar <span>&#8594;</span></button></div></div><div class="game-controls"><div class="game-hint" id="gameHint">Usa las flechas o desliza sobre el tablero</div><div class="dpad" aria-label="Controles táctiles"><button data-dir="up" aria-label="Arriba">&#8593;</button><button data-dir="left" aria-label="Izquierda">&#8592;</button><button data-dir="down" aria-label="Abajo">&#8595;</button><button data-dir="right" aria-label="Derecha">&#8594;</button></div><button class="arcade-pause" id="gamePause" hidden aria-label="Pausar partida">&#9646; PAUSAR</button><button class="fire-button" id="fireButton" hidden aria-label="Disparar">FIRE <span>&#10022;</span></button></div></div></div>
-        <aside class="game-side"><div class="side-stat"><span>RÉCORD LOCAL</span><b id="bestScore">00</b><small>Guardado en este dispositivo</small></div><section class="leaderboard-panel" aria-labelledby="leaderboardTitle"><div class="leaderboard-heading"><span id="leaderboardTitle">ARCADE TOP PLAYERS</span><b>TOP 05</b></div><ol id="leaderboardList" aria-live="polite"></ol></section><div class="side-copy"><span class="mini-star">&#10022;</span><h3 id="gameTipTitle">Consejo de juego</h3><p id="gameTip">Anticipa los giros y deja espacio para maniobrar. Cada manzana suma 10 puntos.</p></div><div class="side-mascot" id="gameMascot"><div class="tiny-apple">&#9679;</div><div class="tiny-worm"><i></i><i></i><i></i></div><span>¡A por otra!</span></div></aside>
+        <div class="game-tabs" role="tablist" aria-label="Selecciona un juego"><button class="game-tab active" role="tab" aria-selected="true" data-mode="snake"><span>&#9673;</span> Gusano &amp; Manzana</button><button class="game-tab" role="tab" aria-selected="false" data-mode="galaga"><span>&#10022;</span> Galaga</button><button class="game-tab" role="tab" aria-selected="false" data-mode="tetris"><span>&#9638;</span> Tetris</button><button class="game-tab" role="tab" aria-selected="false" data-mode="flight"><span>&#9992;</span> Vuelo Pixel</button><button class="game-tab" role="tab" aria-selected="false" data-mode="bomber"><span>&#9670;</span> Bomba de Circuito</button><button class="game-tab" role="tab" aria-selected="false" data-mode="maze"><span>&#9679;</span> Laberinto de Luz</button><button class="game-tab" role="tab" aria-selected="false" data-mode="tower"><span>&#8593;</span> Escalera al Taller</button></div>
+        <div class="game-panel">
+          <div class="game-status"><span><i class="live-dot"></i> <span id="gameModeName">GUSANO &amp; MANZANA</span></span><span class="game-score">PUNTOS <b id="score">00</b></span></div>
+          <div class="game-play-area">
+            <div class="game-board-wrap">
+              <canvas id="gameCanvas" width="480" height="480" aria-label="Tablero de Gusano y Manzana"></canvas>
+              <canvas id="galagaCanvas" width="480" height="480" aria-label="Tablero de Galaga" hidden></canvas>
+              <canvas id="tetrisCanvas" width="480" height="480" aria-label="Tablero de Tetris" hidden></canvas>
+              <div class="game-overlay" id="gameOverlay">
+                <div class="overlay-orbit" id="overlayIcon">&#10038;</div>
+                <div class="arcade-countdown" id="arcadeCountdown" aria-live="assertive" hidden><span>ROUND START</span><b>3</b><small>GET READY</small></div>
+                <div class="record-celebration" id="recordCelebration" hidden><span>&#10022; NEW HIGH SCORE &#10022;</span><b>ARCADE LEGEND</b></div>
+                <p class="eyebrow" id="gameEyebrow">RETO RÁPIDO</p>
+                <h2 id="gameTitle">¿Listo para jugar?</h2>
+                <p id="gameMessage">Recoge las manzanas y evita chocar contigo mismo.</p>
+                <div class="snake-difficulty" id="snakeDifficulty" role="group" aria-label="Elige la dificultad" hidden><button type="button" data-difficulty="easy"><b>FÁCIL</b><small>Más tiempo para girar</small></button><button type="button" data-difficulty="medium"><b>MEDIO</b><small>Ritmo equilibrado</small></button><button type="button" data-difficulty="hard"><b>DIFÍCIL</b><small>Ritmo rápido</small></button></div>
+                <div class="snake-difficulty flight-difficulty" id="flightDifficulty" role="group" aria-label="Elige la dificultad de vuelo" hidden><button type="button" data-flight-difficulty="easy"><b>FÁCIL</b><small>Empieza tranquilo; escala</small></button><button type="button" data-flight-difficulty="medium"><b>MEDIO</b><small>Progresión equilibrada</small></button><button type="button" data-flight-difficulty="hard"><b>DIFÍCIL</b><small>Desafío desde el inicio</small></button></div>
+                <button class="button button-primary" id="gameStart">Empezar a jugar <span>&#8594;</span></button>
+              </div>
+            </div>
+            <div class="game-controls">
+              <div class="game-hint" id="gameHint">Usa las flechas o desliza sobre el tablero</div>
+              <div class="dpad" aria-label="Controles táctiles"><button data-dir="up" aria-label="Arriba">&#8593;</button><button data-dir="left" aria-label="Izquierda">&#8592;</button><button data-dir="down" aria-label="Abajo">&#8595;</button><button data-dir="right" aria-label="Derecha">&#8594;</button></div>
+              <button class="fire-button" id="fireButton" hidden aria-label="Disparar">FIRE <span>&#10022;</span></button>
+              <button class="fire-button secondary-game-action" id="jumpButton" hidden aria-label="Saltar">SALTAR <span>&#8593;</span></button>
+            </div>
+          </div>
+          <div class="game-pause-row"><span>PAUSA SEGURA · CONTROL SEPARADO</span><button class="arcade-pause" id="gamePause" hidden aria-label="Pausar partida">&#9646; PAUSAR</button></div>
+        </div>
+        <aside class="game-side">
+          <div class="side-stat"><span>RÉCORD LOCAL</span><b id="bestScore">00</b><small>Guardado en este dispositivo</small></div>
+          <section class="leaderboard-panel" aria-labelledby="leaderboardTitle"><div class="leaderboard-heading"><span id="leaderboardTitle">ARCADE TOP PLAYERS</span><b>TOP 05</b></div><ol id="leaderboardList" aria-live="polite"></ol></section>
+          <div class="side-copy"><span class="mini-star">&#10022;</span><h3 id="gameTipTitle">Consejo de juego</h3><p id="gameTip">Anticipa los giros y deja espacio para maniobrar. Cada manzana suma 10 puntos.</p></div>
+          <div class="side-mascot" id="gameMascot"><div class="tiny-apple">&#9679;</div><div class="tiny-worm"><i></i><i></i><i></i></div><span>¡A por otra!</span></div>
+        </aside>
       </div></div></section>
 
     <section class="page" id="fotos" data-transition="photo">
@@ -103,20 +136,23 @@
         <div class="photo-layout">
           <div class="photo-stage">
             <div class="photo-stage-top"><span><i class="live-dot"></i> ESTACI&Oacute;N DE FOTOS</span><span id="modelStatus">RECORTE LOCAL DISPONIBLE</span><span id="photoStatus">PASO 01 / 03</span></div>
-            <div class="photo-canvas-wrap"><video id="cameraPreview" autoplay playsinline muted hidden></video><canvas id="photoCanvas" width="900" height="600" aria-label="Vista previa del recuerdo"></canvas><div class="photo-placeholder" id="photoPlaceholder"><span class="camera-icon">&#9635;</span><b>Tu recuerdo empieza aqu&iacute;</b><small>Activa la c&aacute;mara para tomarte una foto.</small></div><div class="photo-countdown" id="photoCountdown" aria-live="assertive"></div><span class="photo-rec" aria-hidden="true"><i></i> REC</span></div>
+            <div class="photo-canvas-wrap"><video id="cameraPreview" autoplay playsinline muted hidden></video><canvas id="photoCanvas" width="1800" height="1200" aria-label="Vista previa del recuerdo"></canvas><div class="photo-placeholder" id="photoPlaceholder"><span class="camera-icon">&#9635;</span><b>Tu recuerdo empieza aqu&iacute;</b><small>Activa la c&aacute;mara para tomarte una foto.</small></div><div class="photo-countdown" id="photoCountdown" aria-live="assertive"></div><span class="photo-rec" aria-hidden="true"><i></i> REC</span></div>
             <div class="camera-actions"><button class="button button-primary" id="cameraStart">Activar c&aacute;mara <span>&#8599;</span></button><button class="button button-outline" id="capturePhoto" disabled>Tomar foto <span>&#9679;</span></button><button class="button button-quiet" id="retakePhoto" hidden>Volver a tomar</button></div>
             <div class="photo-tools" id="photoTools" hidden><label for="matteThreshold">Precisi&oacute;n del recorte <output id="matteValue">55</output></label><input id="matteThreshold" type="range" min="30" max="76" value="55"><small>Hacia la izquierda conserva cabello y bordes; hacia la derecha elimina m&aacute;s fondo. El modelo prioriza a la persona y limpia manchas separadas.</small></div>
+            <div class="photo-filters" id="photoFilters" hidden><div class="photo-filter-options" role="group" aria-label="Filtros decorativos"><button type="button" class="photo-filter-choice selected" data-filter="none" aria-pressed="true">Sin filtro</button><button type="button" class="photo-filter-choice" data-filter="puppy" aria-pressed="false">&#128054; Perrito</button><button type="button" class="photo-filter-choice" data-filter="glasses" aria-pressed="false">&#128526; Gafas</button><button type="button" class="photo-filter-choice" data-filter="crown" aria-pressed="false">&#128081; Corona</button></div><details class="photo-filter-position"><summary>Ajustar posici&oacute;n del filtro</summary><label for="filterPositionX">Horizontal <output id="filterPositionXValue">0</output></label><input id="filterPositionX" type="range" min="-30" max="30" value="0" aria-label="Mover filtro a izquierda o derecha"><label class="filter-position-y-label" for="filterPositionY">Vertical <output id="filterPositionYValue">0</output></label><input id="filterPositionY" type="range" min="-20" max="25" value="0" aria-label="Mover filtro arriba o abajo"><small>La posici&oacute;n se estima a partir de la silueta, no de rasgos faciales. Cada filtro conserva su propio ajuste.</small></details></div>
             <div class="photo-actions"><button class="button button-outline" id="savePhoto" disabled>Guardar recuerdo <span>&#8595;</span></button></div>
             <p class="photo-local-note">La c&aacute;mara y la foto se procesan en este dispositivo. No se env&iacute;an a ning&uacute;n servicio.</p>
           </div>
-          <div class="scene-picker"><div class="scene-picker-heading"><div><p class="eyebrow">PASO 02 &mdash; ESCENARIO</p><h2>Elige tu fondo</h2></div><span class="scene-picker-count">05<br><small>OPCIONES</small></span></div>
+          <div class="scene-picker"><div class="scene-picker-heading"><div><p class="eyebrow">PASO 02 &mdash; ESCENARIO</p><h2>Elige tu fondo</h2></div><span class="scene-picker-count">07<br><small>OPCIONES</small></span></div>
             <div class="scene-selected-preview" id="sceneSelectedPreview" aria-live="polite"><span class="scene-selected-art scene-fair" id="sceneSelectedArt">&#9672;</span><span><small>FONDO SELECCIONADO</small><b id="sceneSelectedName">Feria empresarial</b><em id="sceneSelectedHint">Un día para recordar</em></span><i>&#10003;</i></div>
             <div class="scene-list">
               <button class="scene-choice" data-scene="tecnologia" aria-pressed="false"><span class="scene-thumb scene-tech">&#10022;<small>01</small></span><span><b>Tecnolog&iacute;a</b><small>Luz en movimiento</small></span><i>&#10003;</i></button>
               <button class="scene-choice" data-scene="programacion" aria-pressed="false"><span class="scene-thumb scene-code">&lt;/&gt;<small>02</small></span><span><b>Programaci&oacute;n</b><small>C&oacute;digo en acci&oacute;n</small></span><i>&#10003;</i></button>
               <button class="scene-choice selected" data-scene="feria" aria-pressed="true"><span class="scene-thumb scene-fair">&#9672;<small>03</small></span><span><b>Feria empresarial</b><small>Un d&iacute;a para recordar</small></span><i>&#10003;</i></button>
               <button class="scene-choice" data-scene="innovacion" aria-pressed="false"><span class="scene-thumb scene-idea">&#10038;<small>04</small></span><span><b>Innovaci&oacute;n</b><small>Ideas hacia el futuro</small></span><i>&#10003;</i></button>
-              <button class="scene-choice" data-scene="sin-fondo" aria-pressed="false"><span class="scene-thumb scene-empty">&#9633;<small>05</small></span><span><b>Foto original</b><small>Conserva el fondo</small></span><i>&#10003;</i></button>
+              <button class="scene-choice" data-scene="noche-arcade" aria-pressed="false"><span class="scene-thumb scene-night">&#10024;<small>05</small></span><span><b>Noche arcade</b><small>Ne&oacute;n y luces de feria</small></span><i>&#10003;</i></button>
+              <button class="scene-choice" data-scene="jardin-digital" aria-pressed="false"><span class="scene-thumb scene-garden">&#10047;<small>06</small></span><span><b>Jard&iacute;n digital</b><small>Naturaleza futurista</small></span><i>&#10003;</i></button>
+              <button class="scene-choice" data-scene="sin-fondo" aria-pressed="false"><span class="scene-thumb scene-empty">&#9633;<small>07</small></span><span><b>Foto original</b><small>Conserva el fondo</small></span><i>&#10003;</i></button>
               <button class="scene-choice scene-choice-frame" data-scene="marco" aria-pressed="false"><span class="scene-thumb scene-frame">&#9634;<small>FX</small></span><span><b>Marco arcade</b><small>Capa independiente</small></span><i>&#10003;</i></button>
             </div>
             <div class="photo-cutout-note"><span>&#10022;</span><p><b>Recorte inteligente en tu dispositivo</b><br>El modelo prioriza a la persona, limpia el fondo y procesa todo en este navegador. Tu foto no se sube a internet.</p></div>
@@ -131,7 +167,8 @@
   </main>
   <footer class="site-footer"><span>FERIA EMPRESARIAL · PROGRAMACIÓN CREATIVA</span><span class="footer-credit">&#10022; CREADO POR <b>MIGUEL AMAYA</b> &#10022;</span><span>HECHO PARA EXPLORAR <b>&#10022;</b></span></footer>
   <div class="modal" id="projectModal" aria-hidden="true"><div class="modal-backdrop" data-close></div><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" data-close aria-label="Cerrar">×</button><div class="modal-art" id="modalArt"></div><div class="modal-content"><p class="eyebrow" id="modalEyebrow">PROYECTO 01</p><h2 id="modalTitle">Sistema de Votación Electrónico</h2><p id="modalDescription"></p><div class="modal-tags" id="modalTags"></div><div class="modal-actions"><button class="button button-primary" id="modalVisit">Ver proyecto <span>&#8599;</span></button><button class="button button-quiet" data-close>Volver a proyectos</button></div><small class="modal-footnote">Ficha preparada para añadir imágenes, integrantes, tecnologías y enlace cuando estén disponibles.</small></div></div></div>
-  <script src="js/app.js"></script>
-  <script type="module" src="js/photo.js"></script>
+  <script src="js/arcade-extras.js?v=arcade-dk-hammer-fall-1"></script>
+  <script src="js/app.js?v=face-filters-welcome-4"></script>
+  <script type="module" src="js/photo.js?v=face-filters-welcome-6"></script>
 </body>
 </html>

@@ -1,1 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600"><defs><linearGradient id="a" x2="1" y2="1"><stop stop-color="#113c51"/><stop offset=".55" stop-color="#10243c"/><stop offset="1" stop-color="#11172c"/></linearGradient><radialGradient id="b"><stop stop-color="#f3b951" stop-opacity=".32"/><stop offset="1" stop-color="#f3b951" stop-opacity="0"/></radialGradient></defs><path fill="url(#a)" d="M0 0h900v600H0z"/><circle cx="670" cy="260" r="260" fill="url(#b)"/><g fill="none" stroke="#8bd1d2" stroke-opacity=".28"><path d="M0 470h230l58-58h124l70-70h418M0 500h194l72-72h130l68-68h436M490 0v102l80 80v90l96 96v232M530 0v91l77 77v100l93 93v239"/><circle cx="570" cy="260" r="115"/><circle cx="570" cy="260" r="155" stroke="#f1c960" stroke-opacity=".42"/><path d="M455 260h230M570 145v230"/></g><g fill="#f4cc67"><circle cx="230" cy="470" r="4"/><circle cx="482" cy="342" r="4"/><circle cx="666" cy="368" r="4"/><circle cx="607" cy="168" r="4"/></g><text x="62" y="98" fill="#c8dce3" font-family="monospace" font-size="18" letter-spacing="5">FERIA / TECH EXPO</text><text x="62" y="132" fill="#8ca4b3" font-family="monospace" font-size="11" letter-spacing="3">IDEAS EN MOVIMIENTO</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="sky" x2="1" y2="1"><stop stop-color="#0a1834"/><stop offset=".52" stop-color="#123d5d"/><stop offset="1" stop-color="#071326"/></linearGradient>
+    <linearGradient id="floor" x2="0" y2="1"><stop stop-color="#17617a"/><stop offset="1" stop-color="#091629"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#4deaff" stop-opacity=".42"/><stop offset="1" stop-color="#4deaff" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0v36" fill="none" stroke="#76e8ff" stroke-opacity=".12"/></pattern>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h900v600H0z"/><path fill="url(#grid)" d="M0 0h900v600H0z"/>
+  <path fill="url(#glow)" d="M0 0h900v600H0z"/>
+  <path fill="#0a2036" stroke="#39d9f0" stroke-opacity=".68" stroke-width="3" d="M0 155h118l32 32v246l-32 30H0zM900 126H782l-32 34v270l34 34h116z"/>
+  <path fill="#102f48" stroke="#ffd26e" stroke-opacity=".62" stroke-width="2" d="M14 180h88v204H14zM798 151h87v232h-87z"/>
+  <path fill="none" stroke="#4ee8f6" stroke-opacity=".8" stroke-width="4" d="M30 207h57m-57 23h42m-42 23h65m-65 23h35m-35 23h58m-58 23h42M812 181h57m-57 23h42m-42 23h65m-65 23h35m-35 23h58m-58 23h42"/>
+  <path fill="none" stroke="#5ce8f3" stroke-opacity=".57" stroke-width="3" d="M0 91h106l50 50h112M900 84H794l-50 50H632M0 508h146l47-47h150M900 510H754l-47-47H557"/>
+  <path fill="none" stroke="#b2f7ff" stroke-opacity=".25" stroke-width="2" d="M186 0v103l66 66v99M708 0v99l-61 61v105"/>
+  <path fill="url(#floor)" d="M0 442h900v158H0z"/><path fill="none" stroke="#47dff2" stroke-opacity=".72" stroke-width="3" d="M0 446h900M0 484h900M450 445v155M275 445l-108 155m458-155 108 155M80 600l260-155m480 155L560 445"/>
+  <path fill="#ffd36c" d="M0 430h180l25 12H0zM900 430H720l-25 12h205z"/><path fill="#46dff1" d="M360 438h180v4H360z"/>
+  <g fill="#ffe08c"><path d="M138 105h18v18h-18zM735 84h14v14h-14zM184 373h9v9h-9zM703 386h12v12h-12z"/><path d="M172 112h42v4h-42zM680 94h42v4h-42z"/></g>
+  <text x="42" y="56" fill="#d9faff" font-family="monospace" font-size="17" font-weight="bold" letter-spacing="4">TECNOLOGÍA / LAB 01</text>
+  <text x="44" y="78" fill="#78d8e9" font-family="monospace" font-size="9" letter-spacing="3">CONECTA IDEAS · ACTIVA EL FUTURO</text>
+</svg>

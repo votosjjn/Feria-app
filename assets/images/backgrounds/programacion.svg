@@ -1,1 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600"><defs><linearGradient id="a" x2="1" y2="1"><stop stop-color="#152740"/><stop offset="1" stop-color="#071522"/></linearGradient><radialGradient id="b"><stop stop-color="#58c4d4" stop-opacity=".23"/><stop offset="1" stop-color="#58c4d4" stop-opacity="0"/></radialGradient></defs><path fill="url(#a)" d="M0 0h900v600H0z"/><circle cx="690" cy="300" r="280" fill="url(#b)"/><g fill="#a9c3d1" fill-opacity=".31" font-family="monospace" font-size="17"><text x="63" y="190">const ideas = [];</text><text x="63" y="230">function crear() {</text><text x="99" y="270">return futuro;</text><text x="63" y="310">}</text><text x="63" y="380">&lt; feria /&gt;</text><text x="63" y="420">while (curiosidad) {</text></g><g fill="none" stroke="#edbd56" stroke-opacity=".47"><path d="M570 136h175v330H570z"/><path d="M598 174h118M598 208h88M598 242h104M598 311h81M598 345h115M598 379h94"/></g><circle cx="732" cy="166" r="5" fill="#f4c75d"/><text x="63" y="92" fill="#c8dce3" font-family="monospace" font-size="18" letter-spacing="5">BUILD / CREATE</text><text x="63" y="128" fill="#8ca4b3" font-family="monospace" font-size="11" letter-spacing="3">PROGRAMACIÓN DE SOFTWARE</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="room" x2="1" y2="1"><stop stop-color="#10152e"/><stop offset=".48" stop-color="#172e4b"/><stop offset="1" stop-color="#101729"/></linearGradient>
+    <linearGradient id="screen" x2="0" y2="1"><stop stop-color="#123c55"/><stop offset="1" stop-color="#0a172c"/></linearGradient>
+    <linearGradient id="floor" x2="0" y2="1"><stop stop-color="#22385a"/><stop offset="1" stop-color="#081325"/></linearGradient>
+    <pattern id="pixels" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M0 0h1v30M0 0h30v1" fill="none" stroke="#7e9cff" stroke-opacity=".1"/></pattern>
+  </defs>
+  <path fill="url(#room)" d="M0 0h900v600H0z"/><path fill="url(#pixels)" d="M0 0h900v600H0z"/>
+  <path fill="#0b1930" stroke="#6bd9ee" stroke-opacity=".65" stroke-width="3" d="M0 120h185v290H0zM715 98h185v312H715z"/>
+  <path fill="url(#screen)" stroke="#395d82" stroke-width="2" d="M16 138h153v240H16zM731 116h153v262H731z"/>
+  <path fill="#344b6a" d="M31 157h82v7H31zm0 20h116v6H31zm0 20h94v6H31zm0 20h125v6H31zm0 20h76v6H31zm0 20h116v6H31zm0 20h91v6H31zm0 20h124v6H31zm0 20h74v6H31zM746 136h82v7h-82zm0 20h116v6H746zm0 20h94v6h-94zm0 20h125v6H746zm0 20h76v6h-76zm0 20h116v6H746zm0 20h91v6h-91zm0 20h124v6H746zm0 20h74v6h-74z"/>
+  <path fill="#4de2f3" d="M31 157h22v7H31zm0 40h12v6H31zm0 60h28v6H31zm0 60h19v6H31zm715-181h22v7h-22zm0 40h12v6h-12zm0 60h28v6h-28zm0 60h19v6h-19z"/>
+  <path fill="#ffcf69" d="M119 177h28v6h-28zm-42 40h43v6H77zm-18 40h54v6H59zm784-121h28v6h-28zm-42 40h43v6h-43zm-18 40h54v6h-54z"/>
+  <path fill="none" stroke="#f5cc70" stroke-opacity=".56" stroke-width="3" d="M0 90h126l49 49M900 72H774l-49 49M0 463h171l38-38h108M900 458H729l-38-38H584"/>
+  <path fill="#111b31" stroke="#f2c86c" stroke-width="3" d="M232 102h436v246H232z"/><path fill="#081327" stroke="#55deef" stroke-width="2" d="M248 118h404v207H248z"/>
+  <path fill="#30445e" d="M270 148h120v7H270zm0 20h182v6H270zm0 20h145v6H270zm0 20h204v6H270zm0 20h113v6H270zm0 20h173v6H270zm0 20h136v6H270z"/>
+  <path fill="#5ce7ee" d="M270 148h22v7h-22zm0 40h12v6h-12zm0 40h28v6h-28zm0 40h19v6h-19z"/>
+  <path fill="#ffd36e" d="M414 168h38v6h-38zm-22 40h53v6h-53zm22 40h31v6h-31z"/>
+  <path fill="#7be2b5" d="M461 188h24v6h-24zm-48 40h36v6h-36zm-28 40h19v6h-19z"/>
+  <path fill="url(#floor)" d="M0 447h900v153H0z"/><path fill="none" stroke="#57dce9" stroke-opacity=".52" stroke-width="2" d="M0 449h900M0 486h900M450 448v152M220 448l-83 152m543-152 83 152M0 600l370-152m530 152L530 448"/>
+  <g fill="#ffd36e"><path d="M191 126h8v8h-8zM696 105h8v8h-8zM199 427h9v9h-9zM692 419h9v9h-9z"/></g>
+  <text x="43" y="54" fill="#e1f4ff" font-family="monospace" font-size="16" font-weight="bold" letter-spacing="4">CÓDIGO EN CONSTRUCCIÓN</text>
+  <text x="45" y="76" fill="#93b6cb" font-family="monospace" font-size="9" letter-spacing="3">PIENSA · PROGRAMA · CREA</text>
+</svg>
